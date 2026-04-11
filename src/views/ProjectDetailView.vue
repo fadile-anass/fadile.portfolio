@@ -53,14 +53,14 @@ onMounted(async () => {
           </div>
         </div>
         
-        <div class="relative w-full aspect-video bg-[#16213E] rounded-2xl mb-12 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#1A1A2E]">
+        <div class="relative w-full bg-[#16213E] rounded-2xl mb-12 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#1A1A2E]">
           <img 
             v-if="project.image_url" 
             :src="project.image_url" 
             :alt="project.title" 
-            class="absolute inset-0 w-full h-full object-cover" 
+            class="w-full h-auto block" 
           />
-          <div v-else class="absolute inset-0 flex items-center justify-center text-[#606070] bg-[#0F0F1A]">
+          <div v-else class="aspect-video flex items-center justify-center text-[#606070] bg-[#0F0F1A]">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mb-4 opacity-20"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
             <span>No image available</span>
           </div>
@@ -76,14 +76,33 @@ onMounted(async () => {
             <div class="bg-[#16213E] p-6 rounded-2xl border border-[#1A1A2E]">
               <h3 class="text-lg font-bold mb-6 text-[#EAEAEA]">Project Links</h3>
               <div class="flex flex-col gap-4">
-                <a v-if="project.demo_url" :href="project.demo_url" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3 bg-[#E94560] text-white rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all font-bold shadow-lg shadow-[#E94560]/20">
+                <!-- Live Demo -->
+                <a v-if="project.demo_url && project.demo_url !== '#'" :href="project.demo_url" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3 bg-[#E94560] text-white rounded-xl hover:scale-[1.02] active:scale-[0.98] transition-all font-bold shadow-lg shadow-[#E94560]/20">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
                   Live Demo
                 </a>
-                <a v-if="project.github_url" :href="project.github_url" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3 border border-[#E94560] text-[#E94560] rounded-xl hover:bg-[#E94560]/10 transition-all font-bold">
+                <div v-else-if="project.demo_url === '#'" class="flex items-center justify-center gap-2 px-6 py-3 bg-[#1A1A2E] text-[#606070] rounded-xl cursor-not-allowed border border-[#1A1A2E] opacity-70 relative group">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" x2="21" y1="14" y2="3"/></svg>
+                  <span>Live Demo</span>
+                  <div class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#0F0F1A] text-xs text-[#E94560] rounded-md border border-[#E94560]/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap translate-y-1 group-hover:translate-y-0">
+                    Private Project
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0F0F1A]"></div>
+                  </div>
+                </div>
+
+                <!-- Source Code -->
+                <a v-if="project.github_url && project.github_url !== '#'" :href="project.github_url" target="_blank" class="flex items-center justify-center gap-2 px-6 py-3 border border-[#E94560] text-[#E94560] rounded-xl hover:bg-[#E94560]/10 transition-all font-bold">
                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
                   Source Code
                 </a>
+                <div v-else-if="project.github_url === '#'" class="flex items-center justify-center gap-2 px-6 py-3 border border-[#606070] text-[#606070] rounded-xl cursor-not-allowed opacity-70 relative group">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>
+                  <span>Source Code</span>
+                  <div class="absolute -top-10 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#0F0F1A] text-xs text-[#E94560] rounded-md border border-[#E94560]/20 opacity-0 group-hover:opacity-100 transition-all duration-300 pointer-events-none whitespace-nowrap translate-y-1 group-hover:translate-y-0">
+                    Private Code
+                    <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-[#0F0F1A]"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

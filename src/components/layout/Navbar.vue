@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import logo from '../../assets/images/logo.png'
 
 const isScrolled = ref(false)
 const isMobileMenuOpen = ref(false)
@@ -40,7 +41,9 @@ const navLinks = [
     :class="{ 'bg-[rgba(15,15,26,0.95)] backdrop-blur-[10px] py-4 shadow-lg': isScrolled, 'bg-transparent py-6': !isScrolled }"
   >
     <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
-      <a href="#hero" class="text-2xl font-bold text-[#E94560] tracking-tighter">FA.</a>
+      <a href="#hero" class="text-2xl font-bold text-[#E94560] tracking-tighter">
+        <img :src="logo" alt="Logo" class="w-12 h-auto" />
+      </a>
       
       <!-- Desktop Nav -->
       <div class="hidden md:flex items-center gap-8">

@@ -34,7 +34,7 @@ import profileImage from '../../assets/images/about_photo.png';
         <h4 class="text-xl font-bold text-[#EAEAEA] mb-4">Education</h4>
         <div class="space-y-4 mb-8">
           <TimelineItem 
-            title="ESIITM" 
+            title="ESTEM" 
             subtitle="2023 - 2024" 
             description="Advanced studies in Information Technology and Management."
           />
