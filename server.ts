@@ -8,8 +8,11 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import db from './backend/src/config/db.js';
 import dotenv from 'dotenv';
+import { Resend } from 'resend';
 
 dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -97,13 +100,41 @@ async function startServer() {
     }
   });
 
+  app.get('/api/blog/:slug', (req, res) => {
+    try {
+      const { slug } = req.params;
+      const allPosts = db.query('blog_posts').filter((p: any) => p.published === 1);
+      const post = allPosts.find((p: any) => p.slug === slug);
+      if (!post) {
+        return res.status(404).json({ error: 'Blog post not found' });
+      }
+      // Build related posts: share at least one tag, exclude current, max 2
+      const postTags: string[] = JSON.parse(post.tags || '[]');
+      const relatedPosts = allPosts
+        .filter((p: any) => p.slug !== slug)
+        .map((p: any) => {
+          const pTags: string[] = JSON.parse(p.tags || '[]');
+          const shared = pTags.filter(t => postTags.includes(t)).length;
+          return { ...p, _shared: shared };
+        })
+        .filter((p: any) => p._shared > 0)
+        .sort((a: any, b: any) => b._shared - a._shared)
+        .slice(0, 2)
+        .map(({ _shared, content, ...rest }: any) => rest); // strip content & _shared for lightness
+
+      res.json({ ...post, relatedPosts });
+    } catch (error) {
+      res.status(500).json({ error: (error as Error).message });
+    }
+  });
+
   const contactLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 5, // 5 requests per hour
     message: { success: false, errors: ['Too many requests, please try again later.'] }
   });
 
-  app.post('/api/contact', contactLimiter, (req, res) => {
+  app.post('/api/contact', contactLimiter, async (req, res) => {
     try {
       const { name, email, subject, message } = req.body;
       const errors = [];
@@ -119,6 +150,37 @@ async function startServer() {
 
       const ip = req.ip;
       db.insert('contacts', { name, email, subject: subject || '', message, ip_address: ip, read_status: 0 });
+
+      try {
+        const [ownerEmail, userReply] = await Promise.all([
+          resend.emails.send({
+            from: 'Contact Form <contact@fadile.site>',
+            to: 'anassfadile18@gmail.com',
+            replyTo: email,
+            subject: `New Contact: ${subject || 'No Subject'}`,
+            html: `
+              <h3>New Message from ${name}</h3>
+              <p><strong>Email:</strong> ${email}</p>
+              <p><strong>Message:</strong></p>
+              <p>${message}</p>
+            `
+          }),
+resend.emails.send({
+  from: 'Anass Fadile <contact@fadile.site>',
+  to: email,
+  subject: 'Thank you for your message!', 
+  template: {
+    id: process.env.RESEND_TEMPLATE_ID,  
+    variables: {
+      name: name   
+    }
+  }
+})
+        ]);
+        console.log('Emails sent successfully! Response:', ownerEmail);
+      } catch (e) {
+        console.error('Error sending email with Resend:', e);
+      }
 
       res.json({ success: true, message: 'Your message has been sent!' });
     } catch (error) {

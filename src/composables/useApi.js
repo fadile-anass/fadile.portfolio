@@ -91,6 +91,23 @@ export function useApi() {
     return { data, loading, error }
   }
 
+  const fetchBlogPostBySlug = async (slug) => {
+    const data = ref(null)
+    const loading = ref(true)
+    const error = ref(null)
+    
+    try {
+      const response = await api.get(`/blog/${slug}`)
+      data.value = response.data
+    } catch (err) {
+      error.value = err.response?.data?.error || err.message
+    } finally {
+      loading.value = false
+    }
+    
+    return { data, loading, error }
+  }
+
   const submitContact = async (formData) => {
     const data = ref(null)
     const error = ref(null)
@@ -111,6 +128,7 @@ export function useApi() {
     fetchExperiences,
     fetchServices,
     fetchBlogPosts,
+    fetchBlogPostBySlug,
     submitContact
   }
 }

@@ -3,6 +3,9 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import db from '../backend/src/config/db.js';
+import { Resend } from 'resend';
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const app = express();
 
@@ -80,13 +83,26 @@ app.get('/api/blog', (req, res) => {
   }
 });
 
+app.get('/api/blog/:slug', (req, res) => {
+  try {
+    const { slug } = req.params;
+    const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+    if (!post) {
+      return res.status(404).json({ error: 'Blog post not found' });
+    }
+    res.json(post);
+  } catch (error: any) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 const contactLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, 
   max: 5, 
   message: { success: false, errors: ['Too many requests, please try again later.'] }
 });
 
-app.post('/api/contact', contactLimiter, (req, res) => {
+app.post('/api/contact', contactLimiter, async (req, res) => {
   try {
     const { name, email, subject, message } = req.body;
     const errors = [];
@@ -102,6 +118,40 @@ app.post('/api/contact', contactLimiter, (req, res) => {
 
     const ip = req.ip;
     db.insert('contacts', { name, email, subject: subject || '', message, ip_address: ip, read_status: 0 });
+
+    try {
+      const [ownerEmail, userReply] = await Promise.all([
+        resend.emails.send({
+          from: 'Contact Form <contact@fadile.site>',
+          to: 'anassfadile18@gmail.com',
+          replyTo: email,
+          subject: `New Contact: ${subject || 'No Subject'}`,
+          html: `
+            <h3>New Message from ${name}</h3>
+            <p><strong>Email:</strong> ${email}</p>
+            <p><strong>Message:</strong></p>
+            <p>${message}</p>
+          `
+        }),
+// Replace the old HTML resend call with this Template call:
+resend.emails.send({
+  from: 'Anass Fadile <contact@fadile.site>',
+  to: email,
+  // NO subject line here, Resend templates use the subject defined in the dashboard!
+  // Send the template ID and the variables
+  template: {
+    id: 'YOUR_TEMPLATE_ID_HERE', 
+    variables: { 
+      name: name 
+    }
+  }
+})
+
+      ]);
+      console.log('Resend emails sent successfully!');
+    } catch (e) {
+      console.error('Error sending email with Resend:', e);
+    }
 
     res.json({ success: true, message: 'Your message has been sent!' });
   } catch (error: any) {

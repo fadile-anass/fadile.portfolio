@@ -13,6 +13,11 @@ const router = createRouter({
       path: '/project/:slug',
       name: 'project-detail',
       component: () => import('../views/ProjectDetailView.vue')
+    },
+    {
+      path: '/blog/:slug',
+      name: 'blog-detail',
+      component: () => import('../views/BlogDetailView.vue')
     }
   ],
   scrollBehavior(to, from, savedPosition) {

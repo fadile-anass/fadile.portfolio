@@ -1,13 +1,97 @@
 const db = {
-  projects: [
-    { id: 1, title: 'Ilya Tour', slug: 'travel-agency-dashboard', description: 'A comprehensive dashboard for managing travel agency operations.', tech_stack: '["Vue.js", "Tailwind CSS"]', category: 'frontend', featured: 1, sort_order: 1, image_url: '/images/projects/ilyatour.png', demo_url: '#', github_url: '#' },
-    { id: 2, title: 'Eventlink', slug: 'events-management-app', description: 'Full stack application for creating and managing events.', tech_stack: '["Laravel", "Vue.js", "MySQL"]', category: 'fullstack', featured: 1, sort_order: 2, image_url: '/images/projects/eventlink.png', demo_url: '#', github_url: '#' },
-    { id: 3, title: 'Amasante', slug: 'health-app', description: 'Healthcare management system for patients and doctors.', tech_stack: '["Laravel", "Vue.js", "MySQL"]', category: 'fullstack', featured: 0, sort_order: 3, image_url: '/images/projects/amasante.png', demo_url: '#', github_url: '#' },
-    { id: 4, title: 'Integrated Management System', slug: 'red-crescent-ims', description: 'Management system built for the Red Crescent.', tech_stack: '["MongoDB", "Express", "React", "Node.js"]', category: 'fullstack', featured: 1, sort_order: 4, image_url: '/images/projects/red-crescent-ims.png', demo_url: '#', github_url: '#' },
-    { id: 5, title: 'Distrack — Suivi Distribution', slug: 'distrack-field-tracking', description: 'Plateforme professionnelle (FR) de suivi, contrôle et preuve d’exécution des opérations de distribution terrain : transparence, traçabilité et performance sur le terrain.', tech_stack: '["Laravel", "Vue.js", "MySQL"]', category: 'fullstack', featured: 0, sort_order: 5, image_url: '/images/projects/distrack.png', demo_url: '#', github_url: '#' },
-    { id: 6, title: 'Electrical Installation Morocco', slug: 'security-camera-garage-door-morocco', description: 'Local provider offering professional IP and wireless surveillance camera installation, garage door sales & installation, and accessories; serves Casablanca, Marrakech, Rabat and nearby cities, with an online shop and free quotes.', tech_stack: '["HTML", "JAVASCRIPT", "TAILWIND CSS"]', category: 'frontend', featured: 0, sort_order: 6, image_url: '/images/projects/installation_electric.png', demo_url: 'https://www.installation-electrique.site/', github_url: 'https://github.com/fadile-anass/is-electrique-langing-page' },
-    // { id: 7, title: 'VitraPro Landing Page', slug: 'vitrapro-landing', description: 'High-conversion landing page for VitraPro.', tech_stack: '["Vue.js", "GSAP", "Tailwind CSS"]', category: 'frontend', featured: 0, sort_order: 5, image_url: '/images/projects/vitrapro-landing.png', demo_url: '#', github_url: '#' }
-  ],
+projects: [
+  {
+    id: 1,
+    title: 'Distrack — Field Distribution Tracking System',
+    slug: 'distrack-field-tracking',
+    description: 'Professional platform designed to track, verify, and optimize field distribution operations. Built to provide real-time visibility, proof of execution, and performance analytics for companies managing field teams.',
+    tech_stack: '["Laravel", "Vue.js", "MySQL"]',
+    category: 'fullstack',
+    featured: 1,
+    sort_order: 0,
+    image_url: '/images/projects/distrack.png',
+    demo_url: '#',
+    github_url: '#'
+  },
+  {
+    id: 2,
+    title: 'Ilya Tour — Travel Agency Management Dashboard',
+    slug: 'travel-agency-dashboard',
+    description: 'Advanced dashboard for managing travel agency operations including bookings, client management, and reporting. Designed to streamline workflows and improve operational efficiency.',
+    tech_stack: '["Vue.js", "Tailwind CSS"]',
+    category: 'frontend',
+    featured: 1,
+    sort_order: 1,
+    image_url: '/images/projects/ilyatour.png',
+    demo_url: '#',
+    github_url: '#'
+  },
+  {
+    id: 3,
+    title: 'Eventlink — Event Management Platform',
+    slug: 'events-management-app',
+    description: 'Full-stack application that allows users to create, manage, and track events with an admin dashboard. Includes scalable architecture and structured data management.',
+    tech_stack: '["Laravel", "Vue.js", "MySQL"]',
+    category: 'fullstack',
+    featured: 1,
+    sort_order: 2,
+    image_url: '/images/projects/eventlink.png',
+    demo_url: '#',
+    github_url: '#'
+  },
+  {
+    id: 4,
+    title: 'Integrated Management System (Red Crescent)',
+    slug: 'red-crescent-ims',
+    description: 'Comprehensive management system developed for Croissant Rouge Marocain to handle internal operations, user management, and data tracking using a scalable MERN stack architecture.',
+    tech_stack: '["MongoDB", "Express", "React", "Node.js"]',
+    category: 'fullstack',
+    featured: 1,
+    sort_order: 3,
+    image_url: '/images/projects/red-crescent-ims.png',
+    demo_url: '#',
+    github_url: '#'
+  },
+  {
+    id: 5,
+    title: 'Electrical Installation Morocco — Business Website',
+    slug: 'security-camera-garage-door-morocco',
+    description: 'Real-world business website for a service provider offering surveillance installation and automation systems. Built to generate leads, showcase services, and support online visibility.',
+    tech_stack: '["HTML", "JavaScript", "Tailwind CSS"]',
+    category: 'frontend',
+    featured: 0,
+    sort_order: 4,
+    image_url: '/images/projects/installation_electric.png',
+    demo_url: 'https://www.installation-electrique.site/',
+    github_url: 'https://github.com/fadile-anass/is-electrique-langing-page'
+  },
+  {
+    id: 6,
+    title: 'Amasante — Healthcare Management System',
+    slug: 'health-app',
+    description: 'Healthcare platform enabling interaction between patients and doctors, including appointment management and data organization. Focused on usability and structured backend logic.',
+    tech_stack: '["Laravel", "Vue.js", "MySQL"]',
+    category: 'fullstack',
+    featured: 0,
+    sort_order: 5,
+    image_url: '/images/projects/amasante.png',
+    demo_url: '#',
+    github_url: '#'
+  },
+  // {
+  //   id: 7,
+  //   title: 'Spinner Wheel App — Custom Decision Tool',
+  //   slug: 'spinner-wheel-app',
+  //   description: 'Interactive backend-powered application allowing users to create customizable spinner wheels for product selection, games, or decision-making tools.',
+  //   tech_stack: '["Node.js", "Express"]',
+  //   category: 'backend',
+  //   featured: 0,
+  //   sort_order: 6,
+  //   image_url: '/images/projects/spinner.png',
+  //   demo_url: '#',
+  //   github_url: '#'
+  // }
+],
   skills: [
     { id: 1, name: 'HTML', category: 'frontend', level: 90, sort_order: 1 },
     { id: 2, name: 'CSS', category: 'frontend', level: 88, sort_order: 2 },
@@ -41,11 +125,263 @@ const db = {
     { id: 3, title: 'API & Backend Engineering', description: 'Robust, scalable, and secure RESTful APIs and database design.', icon_name: 'server', sort_order: 3 },
     { id: 4, title: 'Business Development & CRM', description: 'Integrating technical solutions with business growth strategies.', icon_name: 'chart', sort_order: 4 }
   ],
-  blog_posts: [
-    { id: 1, title: 'Getting Started with Vue 3 and GSAP', slug: 'vue3-gsap-intro', excerpt: 'Learn how to create stunning animations in Vue 3 using GSAP.', content: 'Content coming soon...', tags: '["Vue.js", "GSAP", "Animation"]', published: 0, created_at: '2026-04-01T12:00:00Z' },
-    { id: 2, title: 'Building a REST API with Express and SQLite', slug: 'express-sqlite-api', excerpt: 'A guide to setting up a lightweight backend.', content: 'Content coming soon...', tags: '["Node.js", "Express", "SQLite"]', published: 0, created_at: '2026-04-02T12:00:00Z' },
-    { id: 3, title: 'The Power of Three.js in Web Design', slug: 'threejs-web-design', excerpt: 'Why 3D is the future of web experiences.', content: 'Content coming soon...', tags: '["Three.js", "Web Design", "3D"]', published: 0, created_at: '2026-04-03T12:00:00Z' }
-  ],
+blog_posts: [
+{
+  id: 1,
+  title: 'From Developer to Problem Solver: The Mindset Shift That Changed Everything',
+  slug: 'developer-to-problem-solver',
+  excerpt: 'Most developers focus on code. The best developers focus on solving real problems. This mindset shift changed how I build software.',
+  content: `
+<h2>Introduction</h2>
+<p>When I first started in development, I believed that writing clean code and mastering frameworks was enough to succeed. I focused heavily on syntax, best practices, and learning new technologies.</p>
+
+<p>But as I started working on real-world projects, I realized something important: <strong>clients and businesses don’t care about code — they care about results.</strong></p>
+
+<h2>The Wrong Focus</h2>
+<p>Many developers fall into the same trap. They spend hours debating frameworks, optimizing code structure, or chasing trends.</p>
+
+<p>But in reality, none of that matters if the product doesn’t solve a real problem.</p>
+
+<h2>The Shift in Thinking</h2>
+<p>I started changing my approach. Instead of asking:</p>
+<ul>
+<li>“What technology should I use?”</li>
+</ul>
+
+<p>I began asking:</p>
+<ul>
+<li>“What problem am I solving?”</li>
+<li>“Who is this for?”</li>
+<li>“What value does this bring?”</li>
+</ul>
+
+<p>This completely changed how I build applications.</p>
+
+<h2>Real Example: Distrack</h2>
+<p>When working on Distrack, the goal wasn’t to build a “cool app”. The goal was to solve a real business problem:</p>
+
+<ul>
+<li>Lack of visibility in field operations</li>
+<li>No proof of execution</li>
+<li>Poor tracking of performance</li>
+</ul>
+
+<p>So instead of focusing only on features, I focused on:</p>
+<ul>
+<li>Tracking systems</li>
+<li>Data transparency</li>
+<li>Performance insights</li>
+</ul>
+
+<p>This is what made the project valuable.</p>
+
+<h2>What Changed in My Workflow</h2>
+<p>Now, every time I build something, I follow this mindset:</p>
+
+<ul>
+<li>Start with the problem</li>
+<li>Understand the user</li>
+<li>Design the solution</li>
+<li>Then write the code</li>
+</ul>
+
+<h2>Why This Matters</h2>
+<p>This approach makes you:</p>
+<ul>
+<li>More valuable to clients</li>
+<li>More effective as a developer</li>
+<li>More aligned with real-world needs</li>
+</ul>
+
+<h2>Conclusion</h2>
+<p>If you want to grow fast in development, stop thinking like a coder and start thinking like a problem solver.</p>
+
+<p>Because at the end of the day, <strong>code is just a tool — solving problems is the real skill.</strong></p>
+`,
+  cover_image: '/images/blog/problem-solver.png',
+  read_time: 6,
+  tags: '["Mindset", "Career", "Development"]',
+  published: 1,
+  created_at: '2026-04-13T10:00:00Z'
+},
+  {
+    id: 2,
+    title: 'Why Most Web Apps Fail (And How to Build Ones That Succeed)',
+    slug: 'why-web-apps-fail',
+    excerpt: 'Many web apps fail not because of bad code, but because of bad thinking. Let’s break down what actually matters.',
+    content: `
+<h2>The Real Problem</h2>
+<p>Most developers focus too much on technology and not enough on user value.</p>
+
+<h2>What Actually Matters</h2>
+<ul>
+<li>Solving a real problem</li>
+<li>Simple and intuitive UX</li>
+<li>Performance and reliability</li>
+</ul>
+
+<h2>My Approach</h2>
+<p>When building platforms like Eventlink or management systems, I focus on usability and business logic first.</p>
+
+<h2>Takeaway</h2>
+<p>Good code is important, but useful products win.</p>
+    `,
+    cover_image: '/images/blog/web-apps.png',
+    read_time: 5,
+    tags: '["Web Development", "Product", "UX"]',
+    published: 1,
+    created_at: '2026-04-13T11:00:00Z'
+  },
+  {
+    id: 3,
+    title: 'Building Scalable Dashboards with Vue.js and Laravel',
+    slug: 'scalable-dashboards-vue-laravel',
+    excerpt: 'Dashboards are at the core of modern applications. Here’s how I build scalable and maintainable ones.',
+    content: `
+<h2>Why Dashboards Matter</h2>
+<p>Dashboards centralize data and help businesses make decisions faster.</p>
+
+<h2>My Stack</h2>
+<p>I use Vue.js for dynamic interfaces and Laravel for structured backend logic.</p>
+
+<h2>Best Practices</h2>
+<ul>
+<li>Modular components</li>
+<li>Reusable APIs</li>
+<li>Clear data flow</li>
+</ul>
+
+<h2>Example</h2>
+<p>I applied this approach in Ilya Tour and Distrack systems.</p>
+    `,
+    cover_image: '/images/blog/dashboard.png',
+    read_time: 6,
+    tags: '["Vue.js", "Laravel", "Architecture"]',
+    published: 1,
+    created_at: '2026-04-13T12:00:00Z'
+  },
+{
+  id: 4,
+  title: 'The Business Side of Development: What Most Developers Ignore',
+  slug: 'business-side-of-dev',
+  excerpt: 'Understanding business is what separates average developers from high-impact ones. Here’s what most developers miss.',
+  content: `
+<h2>Introduction</h2>
+<p>Most developers focus only on the technical side of building applications. They learn frameworks, tools, and best practices.</p>
+
+<p>But there is another side that is often ignored: <strong>the business side.</strong></p>
+
+<h2>Why Business Matters</h2>
+<p>Every application exists for a reason. That reason is usually tied to business goals:</p>
+
+<ul>
+<li>Increase revenue</li>
+<li>Save time</li>
+<li>Improve efficiency</li>
+<li>Solve operational problems</li>
+</ul>
+
+<p>If you don’t understand these goals, you are just writing code — not building value.</p>
+
+<h2>My Experience</h2>
+<p>Working on real-world projects and in business environments helped me understand something important:</p>
+
+<p><strong>The best solutions are not the most complex ones — they are the most useful ones.</strong></p>
+
+<h2>Example: Real Business Projects</h2>
+<p>When building platforms like Distrack or management systems, I focused on:</p>
+
+<ul>
+<li>What the business actually needs</li>
+<li>How users interact with the system</li>
+<li>What can improve efficiency</li>
+</ul>
+
+<p>This approach leads to better results than just focusing on features.</p>
+
+<h2>What Developers Should Learn</h2>
+<p>To become more valuable, developers should understand:</p>
+
+<ul>
+<li>User behavior</li>
+<li>Business processes</li>
+<li>Performance and scalability</li>
+<li>ROI (return on investment)</li>
+</ul>
+
+<h2>The Advantage</h2>
+<p>When you combine technical skills with business understanding, you become:</p>
+
+<ul>
+<li>More than a developer</li>
+<li>A problem solver</li>
+<li>A valuable asset to any team or client</li>
+</ul>
+
+<h2>Conclusion</h2>
+<p>Technology is important, but business is what gives it meaning.</p>
+
+<p>If you want to stand out, don’t just learn how to code — learn why you are building.</p>
+`,
+  cover_image: '/images/blog/business-dev.png',
+  read_time: 7,
+  tags: '["Business", "Career", "Development"]',
+  published: 1,
+  created_at: '2026-04-13T13:00:00Z'
+},
+  {
+    id: 5,
+    title: 'From Idea to Product: How I Build Real-World Applications',
+    slug: 'idea-to-product',
+    excerpt: 'Turning an idea into a working product requires more than coding. Here’s my process.',
+    content: `
+<h2>Step 1: Understand the Problem</h2>
+<p>Every project starts with a clear problem to solve.</p>
+
+<h2>Step 2: Plan the System</h2>
+<p>I design the architecture before writing code.</p>
+
+<h2>Step 3: Build Iteratively</h2>
+<p>I focus on delivering value quickly, then improving.</p>
+
+<h2>Step 4: Optimize</h2>
+<p>Performance and UX are key to success.</p>
+    `,
+    cover_image: '/images/blog/product.png',
+    read_time: 5,
+    tags: '["Process", "Development", "Startup"]',
+    published: 1,
+    created_at: '2026-04-13T14:00:00Z'
+  },
+  {
+    id: 6,
+    title: 'Why Tracking Systems Are Powerful for Businesses',
+    slug: 'tracking-systems-business',
+    excerpt: 'Tracking systems can transform how businesses operate. Here’s why they are so valuable.',
+    content: `
+<h2>Visibility is Power</h2>
+<p>Businesses need to know what’s happening in real time.</p>
+
+<h2>Use Cases</h2>
+<ul>
+<li>Field operations</li>
+<li>Logistics</li>
+<li>Performance tracking</li>
+</ul>
+
+<h2>Example</h2>
+<p>Distrack was built to provide transparency and accountability in field distribution.</p>
+
+<h2>Final Thought</h2>
+<p>Systems that provide clarity always create value.</p>
+    `,
+    cover_image: '/images/blog/tracking.png',
+    read_time: 4,
+    tags: '["Systems", "Business", "Tech"]',
+    published: 1,
+    created_at: '2026-04-13T15:00:00Z'
+  }
+],
   contacts: []
 };
 
