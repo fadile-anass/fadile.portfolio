@@ -8,6 +8,7 @@ import ServicesSection from '../components/sections/ServicesSection.vue'
 import BlogSection from '../components/sections/BlogSection.vue'
 import ContactSection from '../components/sections/ContactSection.vue'
 import Footer from '../components/layout/Footer.vue'
+import ChatBot from '../components/ChatBot/Chatbot.vue'
 import { useGsapAnimations } from '../composables/useGsapAnimations'
 import { onMounted, onUnmounted } from 'vue'
 
@@ -37,4 +38,5 @@ onUnmounted(() => {
     <ContactSection id="contact" />
   </main>
   <Footer />
+  <ChatBot />
 </template>
