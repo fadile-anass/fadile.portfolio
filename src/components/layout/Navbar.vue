@@ -31,6 +31,7 @@ const navLinks = [
   { name: 'Projects', href: '#projects' },
   { name: 'Skills', href: '#skills' },
   { name: 'Services', href: '#services' },
+  { name: 'Blog', href: '#blog' },
   { name: 'Contact', href: '#contact' }
 ]
 </script>

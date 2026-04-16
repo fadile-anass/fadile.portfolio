@@ -2,6 +2,22 @@
 import SectionTitle from '../ui/SectionTitle.vue'
 import TimelineItem from '../ui/TimelineItem.vue'
 import profileImage from '../../assets/images/about_photo.png';
+
+
+const soft_skills = [
+    "Problem Solving",
+    "Self-Learning",
+    "Adaptability",
+    "Attention to Detail",
+    "Communication",
+    "Creativity",
+    "Initiative",
+    "Time Management",
+    "Growth Mindset",
+    "User-Centric Thinking",
+    "Collaboration Readiness",
+    "Persistence"
+  ]
 </script>
 
 <template>
@@ -47,7 +63,7 @@ import profileImage from '../../assets/images/about_photo.png';
         
         <h4 class="text-xl font-bold text-[#EAEAEA] mb-4">Soft Skills</h4>
         <div class="flex flex-wrap gap-2 mb-8">
-          <span v-for="skill in ['Problem Solving', 'Teamwork', 'Adaptability', 'Fast Learner', 'Client Communication', 'Initiative']" :key="skill" class="px-4 py-2 bg-[#16213E] text-[#EAEAEA] text-sm rounded-lg border border-[rgba(233,69,96,0.1)]">
+          <span v-for="skill in soft_skills" :key="skill" class="px-4 py-2 bg-[#16213E] text-[#EAEAEA] text-sm rounded-lg border border-[rgba(233,69,96,0.1)]">
             {{ skill }}
           </span>
         </div>
