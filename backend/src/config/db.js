@@ -380,7 +380,69 @@ blog_posts: [
     tags: '["Systems", "Business", "Tech"]',
     published: 1,
     created_at: '2026-04-13T15:00:00Z'
-  }
+  },
+  {
+  id: 5,
+  title: 'User-Centric Thinking: Building for Humans, Not Just Code',
+  slug: 'user-centric-thinking',
+  excerpt: 'Great products are not defined by code quality alone, but by how users experience them. Discover how user-centric thinking transforms interfaces into meaningful, intuitive solutions.',
+  content: `
+<h2>What is User-Centric Thinking?</h2>
+<p><strong>User-Centric Thinking</strong> is the ability to design and build solutions with the end user in mind. It goes beyond writing clean code — it’s about creating experiences that are intuitive, accessible, and genuinely useful.</p>
+<p>Instead of asking <em>"How do I build this?"</em>, user-centric developers ask <strong>"How will people use this?"</strong></p>
+
+<h2>Why It Matters</h2>
+<p>In real-world applications, users don’t care about your tech stack. They care about:</p>
+<ul>
+  <li>How easy it is to navigate</li>
+  <li>How fast they can achieve their goal</li>
+  <li>How clear and understandable the interface is</li>
+</ul>
+<p>A technically perfect application can still fail if users find it confusing or frustrating.</p>
+
+<h2>From Developer Thinking to User Thinking</h2>
+<p>Developers often focus on logic, structure, and performance. While these are essential, they must be balanced with usability.</p>
+<p>User-centric thinking shifts the mindset:</p>
+<ul>
+  <li><strong>From features → to value</strong></li>
+  <li><strong>From complexity → to simplicity</strong></li>
+  <li><strong>From implementation → to experience</strong></li>
+</ul>
+
+<h2>Practical Examples</h2>
+<ul>
+  <li>A form with 10 fields → simplified into 3 essential steps</li>
+  <li>A dashboard full of data → reorganized into clear sections</li>
+  <li>Technical error messages → replaced with human-friendly feedback</li>
+</ul>
+
+<h2>Key Principles</h2>
+<ul>
+  <li><strong>Clarity:</strong> Users should understand instantly what to do</li>
+  <li><strong>Simplicity:</strong> Remove unnecessary steps and distractions</li>
+  <li><strong>Consistency:</strong> Keep UI patterns predictable</li>
+  <li><strong>Feedback:</strong> Always show what’s happening (loading, success, errors)</li>
+</ul>
+
+<h2>How I Apply It in My Projects</h2>
+<p>In my work, I prioritize:</p>
+<ul>
+  <li>Clean and readable interfaces using Tailwind CSS</li>
+  <li>Smooth interactions and animations that guide the user</li>
+  <li>Logical flows that reduce friction and confusion</li>
+</ul>
+<p>Whether it's a dashboard, landing page, or full-stack app, the goal is always the same: <strong>make the experience effortless.</strong></p>
+
+<h2>Final Thought</h2>
+<p>At the end of the day, software is not built for developers — it’s built for people.</p>
+<p><strong>User-centric thinking is what transforms code into real-world impact.</strong></p>
+  `,
+  cover_image: '/images/blog/user-centric-thinking.png',
+  read_time: 4,
+  tags: '["UX", "Soft Skills", "Frontend"]',
+  published: 1,
+  created_at: '2026-04-16T12:00:00Z'
+}
 ],
   contacts: []
 };
