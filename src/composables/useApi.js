@@ -122,6 +122,54 @@ export function useApi() {
     return { data, error }
   }
 
+  const fetchReactions = async (slug) => {
+    const data = ref(null)
+    const error = ref(null)
+    try {
+      const response = await api.get(`/blog/${slug}/reactions`)
+      data.value = response.data
+    } catch (err) {
+      error.value = err.response?.data?.error || err.message
+    }
+    return { data, error }
+  }
+
+  const addReaction = async (slug, emoji) => {
+    const data = ref(null)
+    const error = ref(null)
+    try {
+      const response = await api.post(`/blog/${slug}/reactions`, { emoji })
+      data.value = response.data
+    } catch (err) {
+      error.value = err.response?.data?.error || err.message
+    }
+    return { data, error }
+  }
+
+  const fetchComments = async (slug) => {
+    const data = ref(null)
+    const error = ref(null)
+    try {
+      const response = await api.get(`/blog/${slug}/comments`)
+      data.value = response.data
+    } catch (err) {
+      error.value = err.response?.data?.error || err.message
+    }
+    return { data, error }
+  }
+
+  const addComment = async (slug, commentData) => {
+    const data = ref(null)
+    const error = ref(null)
+    try {
+      const response = await api.post(`/blog/${slug}/comments`, commentData)
+      data.value = response.data
+    } catch (err) {
+      error.value = err.response?.data?.error || err.message
+    }
+    return { data, error }
+  }
+
   return {
     fetchProjects,
     fetchSkills,
@@ -129,6 +177,10 @@ export function useApi() {
     fetchServices,
     fetchBlogPosts,
     fetchBlogPostBySlug,
-    submitContact
+    submitContact,
+    fetchReactions,
+    addReaction,
+    fetchComments,
+    addComment
   }
 }

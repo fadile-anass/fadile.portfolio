@@ -5,12 +5,20 @@ import { useApi } from '../composables/useApi'
 
 const route = useRoute()
 const router = useRouter()
-const { fetchBlogPostBySlug } = useApi()
+const { fetchBlogPostBySlug, fetchReactions, addReaction, fetchComments, addComment } = useApi()
 
 const post = ref(null)
 const loading = ref(true)
 const error = ref(null)
 const relatedPosts = ref([])
+
+// Reactions & Comments state
+const reactions = ref({})
+const comments = ref([])
+const commentForm = ref({ name: '', content: '' })
+const submittingComment = ref(false)
+const commentError = ref('')
+const commentSuccess = ref(false)
 
 // Reading progress
 const readingProgress = ref(0)
@@ -102,6 +110,8 @@ onMounted(async () => {
     await nextTick()
     tocItems.value = parseToc(post.value.content)
     if (tocItems.value.length) activeHeading.value = tocItems.value[0].id
+    
+    await loadInteractions(slug)
   } else {
     error.value = apiError.value || 'Blog post not found'
   }
@@ -113,6 +123,48 @@ onMounted(async () => {
 onUnmounted(() => {
   window.removeEventListener('scroll', onScroll)
 })
+
+// Interaction methods
+async function loadInteractions(slug) {
+  const [reactionsRes, commentsRes] = await Promise.all([
+    fetchReactions(slug),
+    fetchComments(slug)
+  ])
+  if (reactionsRes.data?.value) reactions.value = reactionsRes.data.value
+  if (commentsRes.data?.value) comments.value = commentsRes.data.value
+}
+
+async function toggleReaction(emoji) {
+  if (!post.value) return
+  // Optimistically update could go here
+  const { data } = await addReaction(post.value.slug, emoji)
+  if (data.value) reactions.value = data.value
+}
+
+async function submitComment() {
+  if (!post.value) return
+  commentError.value = ''
+  
+  if (commentForm.value.name.trim().length < 2) return commentError.value = 'Name must be at least 2 characters.'
+  if (commentForm.value.content.trim().length < 5) return commentError.value = 'Comment must be at least 5 characters.'
+  
+  submittingComment.value = true
+  const { data, error: apiError } = await addComment(post.value.slug, { 
+    author_name: commentForm.value.name, 
+    content: commentForm.value.content 
+  })
+  submittingComment.value = false
+  
+  if (apiError.value) {
+    commentError.value = apiError.value
+  } else if (data.value) {
+    comments.value = data.value
+    commentForm.value.name = ''
+    commentForm.value.content = ''
+    commentSuccess.value = true
+    setTimeout(() => commentSuccess.value = false, 3000)
+  }
+}
 </script>
 
 <template>
@@ -189,6 +241,76 @@ onUnmounted(() => {
 
           <!-- Article Content (HTML rendered) -->
           <div class="prose-blog" v-html="post.content"></div>
+
+          <!-- Reactions Section -->
+          <div class="mt-16 bg-[#16213E]/50 border border-[#1A1A2E] rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <h3 class="text-xl font-bold text-[#EAEAEA]">What do you think?</h3>
+            <div class="flex flex-wrap items-center justify-center gap-3">
+              <button
+                v-for="emoji in ['🔥', '❤️', '👏', '💡', '🚀', '👀']"
+                :key="emoji"
+                @click="toggleReaction(emoji)"
+                class="flex items-center gap-2 px-3 py-2 bg-[#0F0F1A] border border-[#1A1A2E] hover:border-[#E94560]/50 hover:bg-[#1A1A2E] rounded-xl transition-all duration-200 hover:-translate-y-1 active:scale-95 group"
+              >
+                <span class="text-xl group-hover:scale-125 transition-transform">{{ emoji }}</span>
+                <span class="text-sm font-semibold text-[#A0A0B0] group-hover:text-[#EAEAEA]">{{ reactions[emoji] || 0 }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Comments Section -->
+          <div class="mt-12">
+            <h3 class="text-2xl font-black text-[#EAEAEA] mb-8">Comments ({{ comments.length }})</h3>
+            
+            <!-- Comment Form -->
+            <form @submit.prevent="submitComment" class="bg-[#16213E] border border-[#1A1A2E] rounded-2xl p-6 md:p-8 mb-10 shadow-lg">
+              <div v-if="commentSuccess" class="mb-6 p-4 bg-green-500/10 border border-green-500/20 rounded-xl text-green-400 text-sm font-medium">
+                Your comment has been added successfully!
+              </div>
+              <div v-if="commentError" class="mb-6 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-400 text-sm font-medium">
+                {{ commentError }}
+              </div>
+              
+              <div class="grid gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-[#A0A0B0] mb-2">Display Name</label>
+                  <input v-model="commentForm.name" type="text" placeholder="John Doe" class="w-full bg-[#0F0F1A] border border-[#1A1A2E] focus:border-[#E94560] text-[#EAEAEA] rounded-xl px-4 py-3 outline-none transition-colors" />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-[#A0A0B0] mb-2">Comment</label>
+                  <textarea v-model="commentForm.content" rows="4" placeholder="Share your thoughts..." class="w-full bg-[#0F0F1A] border border-[#1A1A2E] focus:border-[#E94560] text-[#EAEAEA] rounded-xl px-4 py-3 outline-none transition-colors resize-y"></textarea>
+                </div>
+                <div class="flex justify-end">
+                  <button type="submit" :disabled="submittingComment" class="px-6 py-3 bg-[#E94560] hover:bg-[#FF6B6B] disabled:opacity-50 disabled:cursor-not-allowed text-white font-bold rounded-xl transition-colors shadow-lg shadow-[#E94560]/20 flex items-center gap-2">
+                    <span v-if="submittingComment" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></span>
+                    {{ submittingComment ? 'Posting...' : 'Post Comment' }}
+                  </button>
+                </div>
+              </div>
+            </form>
+
+            <!-- Comments List -->
+            <div class="space-y-6">
+              <div v-if="comments.length === 0" class="text-center py-10 text-[#A0A0B0] bg-[#16213E]/30 rounded-2xl border border-[#1A1A2E]/50 border-dashed">
+                Be the first to share your thoughts!
+              </div>
+              
+              <div v-for="comment in comments" :key="comment.id" class="flex gap-4 md:gap-6 bg-[#16213E]/50 border border-[#1A1A2E] rounded-2xl p-6">
+                <!-- Avatar -->
+                <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-[#1A1A2E] to-[#2A2A3E] border border-[#2A2A3E] flex items-center justify-center text-[#EAEAEA] font-bold text-lg shrink-0 overflow-hidden">
+                  {{ comment.author_name.charAt(0).toUpperCase() }}
+                </div>
+                <!-- Content -->
+                <div class="flex-grow">
+                  <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
+                    <h4 class="font-bold text-[#EAEAEA] text-lg">{{ comment.author_name }}</h4>
+                    <span class="text-xs text-[#606070]">{{ formatDate(comment.created_at) }}</span>
+                  </div>
+                  <p class="text-[#A0A0B0] leading-relaxed whitespace-pre-line">{{ comment.content }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
 
           <!-- Share + Footer -->
           <div class="mt-16 pt-10 border-t border-[#1A1A2E]">

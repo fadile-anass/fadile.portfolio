@@ -1,3 +1,6 @@
+import { createClient } from '@libsql/client';
+import bcrypt from 'bcryptjs';
+
 const db = {
 projects: [
   {
@@ -444,23 +447,111 @@ blog_posts: [
   created_at: '2026-04-16T12:00:00Z'
 }
 ],
-  contacts: []
+  contacts: [],
+  blog_reactions: [],
+  blog_comments: [],
+  admins: []
 };
 
+let tursoClient = null;
+
 export default {
-  init: () => {
-    console.log('Mock database initialized.');
+  init: async () => {
+    if (process.env.TURSO_DATABASE_URL && process.env.TURSO_AUTH_TOKEN) {
+      tursoClient = createClient({
+        url: process.env.TURSO_DATABASE_URL,
+        authToken: process.env.TURSO_AUTH_TOKEN,
+      });
+      console.log('Turso DB connected.');
+      try {
+        await tursoClient.execute(`
+          CREATE TABLE IF NOT EXISTS blog_comments (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            post_id INTEGER NOT NULL,
+            author_name TEXT NOT NULL,
+            content TEXT NOT NULL,
+            ip_address TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        await tursoClient.execute(`
+          CREATE TABLE IF NOT EXISTS blog_reactions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            post_id INTEGER NOT NULL,
+            emoji TEXT NOT NULL,
+            ip_address TEXT,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        await tursoClient.execute(`
+          CREATE TABLE IF NOT EXISTS contacts (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            name TEXT NOT NULL,
+            email TEXT NOT NULL,
+            subject TEXT,
+            message TEXT NOT NULL,
+            ip_address TEXT,
+            read_status INTEGER DEFAULT 0,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        await tursoClient.execute(`
+          CREATE TABLE IF NOT EXISTS admins (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password_hash TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+          )
+        `);
+        
+        // Seed initial admin if empty
+        const adminCount = await tursoClient.execute('SELECT COUNT(*) as count FROM admins');
+        if (Number(adminCount.rows[0].count) === 0) {
+          const hash = await bcrypt.hash('admin123', 10);
+          await tursoClient.execute('INSERT INTO admins (username, password_hash) VALUES (?, ?)', ['admin', hash]);
+          console.log('Default admin user seeded in Turso');
+        }
+
+      } catch (err) {
+        console.error('Failed to create Turso tables:', err);
+      }
+    } else {
+      console.log('Mock database initialized (No Turso credentials found).');
+      if (db.admins.length === 0) {
+        const hash = await bcrypt.hash('admin123', 10);
+        db.admins.push({ id: 1, username: 'admin', password_hash: hash, created_at: new Date().toISOString() });
+      }
+    }
   },
   query: (table, conditions = null) => {
-    let result = [...db[table]];
+    let result = db[table] ? [...db[table]] : [];
     if (conditions) {
       result = result.filter(conditions);
     }
     return result;
   },
   insert: (table, data) => {
+    if (!db[table]) db[table] = [];
     const newId = db[table].length > 0 ? Math.max(...db[table].map(i => i.id)) + 1 : 1;
     db[table].push({ id: newId, ...data, created_at: new Date().toISOString() });
     return newId;
+  },
+  delete: (table, id) => {
+    if (!db[table]) return false;
+    const index = db[table].findIndex(i => i.id === id);
+    if (index !== -1) {
+      db[table].splice(index, 1);
+      return true;
+    }
+    return false;
+  },
+  queryTurso: async (sql, args = []) => {
+    if (!tursoClient) return [];
+    const result = await tursoClient.execute({ sql, args });
+    return result.rows;
+  },
+  executeTurso: async (sql, args = []) => {
+    if (!tursoClient) return null;
+    return await tursoClient.execute({ sql, args });
   }
 };

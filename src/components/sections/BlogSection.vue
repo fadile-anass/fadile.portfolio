@@ -8,7 +8,6 @@ const router = useRouter()
 const { fetchBlogPosts } = useApi()
 const posts = ref([])
 const loading = ref(true)
-const activeTag = ref('All')
 
 onMounted(async () => {
   const { data } = await fetchBlogPosts()
@@ -18,21 +17,8 @@ onMounted(async () => {
   loading.value = false
 })
 
-const allTags = computed(() => {
-  const tagSet = new Set(['All'])
-  posts.value.forEach(p => {
-    JSON.parse(p.tags || '[]').forEach(t => tagSet.add(t))
-  })
-  return [...tagSet]
-})
-
-const filteredPosts = computed(() => {
-  if (activeTag.value === 'All') return posts.value
-  return posts.value.filter(p => JSON.parse(p.tags || '[]').includes(activeTag.value))
-})
-
-const featuredPost = computed(() => filteredPosts.value[0] || null)
-const gridPosts = computed(() => filteredPosts.value.slice(1))
+const featuredPost = computed(() => posts.value[0] || null)
+const gridPosts = computed(() => posts.value.slice(1, 4))
 
 const navigateToPost = (slug) => {
   router.push({ name: 'blog-detail', params: { slug } })
@@ -71,20 +57,6 @@ const formatDate = (dateString) => {
     </template>
 
     <template v-else>
-      <!-- Tag Filter Pills -->
-      <div class="flex flex-wrap gap-2 mb-10">
-        <button
-          v-for="tag in allTags"
-          :key="tag"
-          @click="activeTag = tag"
-          :class="[
-            'px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200',
-            activeTag === tag
-              ? 'bg-[#E94560] text-white shadow-lg shadow-[#E94560]/30'
-              : 'bg-[#16213E] text-[#A0A0B0] border border-[#1A1A2E] hover:border-[#E94560]/40 hover:text-[#E94560]'
-          ]"
-        >{{ tag }}</button>
-      </div>
 
       <!-- Featured Hero Post -->
       <div
@@ -200,6 +172,17 @@ const formatDate = (dateString) => {
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- View All Button -->
+      <div class="mt-14 text-center">
+        <router-link
+          to="/blog"
+          class="inline-flex items-center gap-2 px-8 py-4 bg-[#16213E] text-[#EAEAEA] font-bold rounded-xl border border-[#1A1A2E] hover:border-[#E94560]/50 hover:bg-[#1A1A2E] hover:text-[#E94560] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(233,69,96,0.15)] group"
+        >
+          View All Posts
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="group-hover:translate-x-1 transition-transform"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </router-link>
       </div>
     </template>
   </section>
