@@ -1,7 +1,8 @@
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
+import ChatBot from '../components/ChatBot/Chatbot.vue'
 
 const route = useRoute()
 const router = useRouter()
@@ -165,6 +166,10 @@ async function submitComment() {
     setTimeout(() => commentSuccess.value = false, 3000)
   }
 }
+const blogContext = computed(() => {
+  if (!post.value) return ''
+  return `Title: ${post.value.title}\nExcerpt: ${post.value.excerpt}\nContent Summary: ${post.value.content?.substring(0, 1000)}...`
+})
 </script>
 
 <template>
@@ -175,7 +180,7 @@ async function submitComment() {
     <div class="px-6 max-w-7xl mx-auto">
 
       <!-- Back button -->
-      <button @click="router.back()" class="mb-10 text-[#A0A0B0] hover:text-[#E94560] transition-colors flex items-center gap-2 group">
+      <button @click="router.push('/blog')" class="mb-10 text-[#A0A0B0] hover:text-[#E94560] transition-colors flex items-center gap-2 group">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m15 18-6-6 6-6"/></svg>
         Back to blog
       </button>
@@ -412,6 +417,7 @@ async function submitComment() {
       </div>
     </div>
   </div>
+  <ChatBot :context="blogContext" />
 </template>
 
 <style scoped>

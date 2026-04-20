@@ -74,8 +74,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick } from 'vue'
+import { ref, onMounted, watch, nextTick, defineProps } from 'vue'
 import './Chatbot.css'
+
+const props = defineProps({
+  context: {
+    type: String,
+    default: ''
+  }
+})
 
 
 // State
@@ -159,8 +166,19 @@ const fetchAIResponse = async (history) => {
 
   const recentMessages = history.slice(-11) // Take the last 11 messages (system + up to 10 history)
 
-  const apiMessages = [
-    { role: 'system', content: systemPrompt },
+  let apiMessages = [
+    { role: 'system', content: systemPrompt }
+  ]
+
+  if (props.context) {
+    apiMessages.push({
+      role: 'system',
+      content: `CONTEXT ABOUT THE CURRENT PAGE:\n${props.context}\n\nPlease use this information to help answer the user's questions if relevant.`
+    })
+  }
+
+  apiMessages = [
+    ...apiMessages,
     ...recentMessages
   ]
 

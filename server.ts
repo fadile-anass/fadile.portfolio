@@ -11,6 +11,7 @@ import dotenv from 'dotenv';
 import { Resend } from 'resend';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
+import { moderateComment } from './backend/src/utils/ai.js';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_key_for_dev_only';
 
@@ -249,6 +250,12 @@ async function startServer() {
       }
       if (!content || content.trim().length < 5 || content.trim().length > 1000) {
         return res.status(400).json({ error: 'Comment must be between 5 and 1000 characters' });
+      }
+
+      // AI Moderation
+      const isSafe = await moderateComment(content);
+      if (!isSafe) {
+        return res.status(400).json({ error: 'Comment rejected: Inappropriate content detected.' });
       }
 
       const ip = req.ip || '0.0.0.0';
