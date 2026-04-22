@@ -385,7 +385,7 @@ blog_posts: [
     created_at: '2026-04-13T15:00:00Z'
   },
   {
-  id: 5,
+  id: 7,
   title: 'User-Centric Thinking: Building for Humans, Not Just Code',
   slug: 'user-centric-thinking',
   excerpt: 'Great products are not defined by code quality alone, but by how users experience them. Discover how user-centric thinking transforms interfaces into meaningful, intuitive solutions.',
@@ -445,6 +445,188 @@ blog_posts: [
   tags: '["UX", "Soft Skills", "Frontend"]',
   published: 1,
   created_at: '2026-04-16T12:00:00Z'
+},
+{
+  id: 2,
+  title: 'RAG vs Prompting vs Function Calling vs Fine-Tuning: What Actually Matters in AI Systems',
+  slug: 'rag-vs-prompt-vs-function-vs-finetuning',
+  excerpt: 'Most developers focus on the model, but the real power of AI comes from how you use it. Here’s a clear breakdown of RAG, Prompting, Function Calling, and Fine-tuning.',
+  content: `
+<h2>Introduction</h2>
+<p>At GITEX Africa, many AI-powered products were criticized for one reason:</p>
+
+<p><strong>“You’re just using APIs. You didn’t build your own model.”</strong></p>
+
+<p>This raises an important question:</p>
+
+<p><strong>What actually makes an AI product powerful?</strong></p>
+
+<p>The answer is not the model itself.</p>
+
+<p>It’s how you design the system around it.</p>
+
+<p>To understand that, you need to know the difference between four key concepts:</p>
+<ul>
+<li>RAG</li>
+<li>Prompt Engineering</li>
+<li>Function Calling</li>
+<li>Fine-tuning</li>
+</ul>
+
+<hr />
+
+<h2>1. RAG (Retrieval-Augmented Generation)</h2>
+<p>RAG is what allows AI to use real data.</p>
+
+<p>Instead of relying only on what the model learned during training, RAG connects it to your database or documents.</p>
+
+<h3>How it works</h3>
+<ul>
+<li>User asks a question</li>
+<li>The system retrieves relevant data</li>
+<li>The AI generates an answer based on that data</li>
+</ul>
+
+<h3>Use case</h3>
+<p>In a CRM:</p>
+<ul>
+<li>“Which invoices are unpaid?”</li>
+<li>The system queries the database</li>
+<li>The AI answers with real results</li>
+</ul>
+
+<p><strong>Key role:</strong> Data access (real-time, dynamic)</p>
+
+<hr />
+
+<h2>2. Prompt Engineering</h2>
+<p>Prompting is how you guide the AI’s behavior.</p>
+
+<p>You don’t change the model — you change the instructions.</p>
+
+<h3>Example</h3>
+<ul>
+<li>Basic: “Explain invoices”</li>
+<li>Better: “You are a financial assistant. Explain unpaid invoices clearly and highlight risks.”</li>
+</ul>
+
+<p><strong>Key role:</strong> Control responses (clarity, tone, structure)</p>
+
+<hr />
+
+<h2>3. Function Calling</h2>
+<p>Function calling allows the AI to interact with your system.</p>
+
+<p>Instead of just answering, it can trigger real actions.</p>
+
+<h3>Example</h3>
+<ul>
+<li>User: “Create an invoice for Client X”</li>
+<li>AI calls your backend API</li>
+<li>The invoice is created</li>
+</ul>
+
+<p><strong>Key role:</strong> Execute actions (automation, workflows)</p>
+
+<hr />
+
+<h2>4. Fine-tuning</h2>
+<p>Fine-tuning is used to customize the model’s behavior.</p>
+
+<p>You train it on your own examples to make it more consistent.</p>
+
+<h3>Use cases</h3>
+<ul>
+<li>Writing in a specific tone</li>
+<li>Generating structured outputs</li>
+<li>Handling repetitive tasks</li>
+</ul>
+
+<p><strong>Important:</strong></p>
+<p>Fine-tuning does not give access to real-time data.</p>
+
+<p><strong>Key role:</strong> Style and consistency</p>
+
+<hr />
+
+<h2>Comparison: Different Roles, Not Competitors</h2>
+
+<table>
+<tr>
+<th>Approach</th>
+<th>Main Role</th>
+<th>Best For</th>
+</tr>
+<tr>
+<td>RAG</td>
+<td>Access data</td>
+<td>Real-time answers</td>
+</tr>
+<tr>
+<td>Prompting</td>
+<td>Guide behavior</td>
+<td>Better responses</td>
+</tr>
+<tr>
+<td>Function Calling</td>
+<td>Trigger actions</td>
+<td>Automation</td>
+</tr>
+<tr>
+<td>Fine-tuning</td>
+<td>Customize model</td>
+<td>Consistency & tone</td>
+</tr>
+</table>
+
+<p><strong>Key insight:</strong></p>
+<p>These are not alternatives.</p>
+<p>They are complementary.</p>
+
+<hr />
+
+<h2>Why Building Your Own LLM Is Not the Priority</h2>
+<p>Training your own model requires:</p>
+<ul>
+<li>Massive datasets</li>
+<li>High infrastructure costs</li>
+<li>Advanced expertise</li>
+</ul>
+
+<p>Most products don’t need that.</p>
+
+<p>They need:</p>
+<ul>
+<li>Good data integration (RAG)</li>
+<li>Clear instructions (Prompting)</li>
+<li>System actions (Function Calling)</li>
+<li>Consistency (Fine-tuning)</li>
+</ul>
+
+<hr />
+
+<h2>Conclusion</h2>
+<p>AI is not about choosing one technique.</p>
+
+<p>It’s about combining them correctly.</p>
+
+<p>The most effective systems today are built like this:</p>
+<ul>
+<li>RAG → to access real data</li>
+<li>Prompting → to guide responses</li>
+<li>Function Calling → to take action</li>
+<li>Fine-tuning → to refine behavior</li>
+</ul>
+
+<p><strong>The model is just one part of the system.</strong></p>
+
+<p><strong>The real value comes from how you use it.</strong></p>
+`,
+  cover_image: '/images/blog/ai-comparison.png',
+  read_time: 8,
+  tags: '["AI", "RAG", "LLM", "SaaS", "Engineering"]',
+  published: 1,
+  created_at: '2026-04-22T15:30:00Z'
 }
 ],
   contacts: [],
