@@ -62,10 +62,10 @@ const formatDate = (dateString) => {
       <div
         v-if="featuredPost"
         @click="navigateToPost(featuredPost.slug)"
-        class="group relative w-full rounded-3xl overflow-hidden border border-[#1A1A2E] hover:border-[#E94560]/40 transition-all duration-500 cursor-pointer mb-10 shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_80px_rgba(233,69,96,0.15)] hover:-translate-y-1 blog-hero-card"
+        class="group relative w-full bg-[#16213E] rounded-3xl overflow-hidden border border-[#1A1A2E] hover:border-[#E94560]/40 transition-all duration-500 cursor-pointer mb-10 shadow-[0_20px_60px_rgba(0,0,0,0.4)] hover:shadow-[0_30px_80px_rgba(233,69,96,0.15)] hover:-translate-y-1 blog-hero-card"
       >
         <!-- Background Image -->
-        <div class="relative h-[420px] md:h-[480px] overflow-hidden">
+        <div class="relative h-[250px] md:h-[400px] overflow-hidden w-full">
           <img
             v-if="featuredPost.cover_image"
             :src="featuredPost.cover_image"
@@ -76,23 +76,20 @@ const formatDate = (dateString) => {
             v-else 
             class="absolute inset-0 bg-gradient-to-br from-[#1A1A2E] via-[#16213E] to-[#E94560]/20 flex items-center justify-center p-12 text-center"
           >
-            <span class="text-4xl md:text-5xl font-black text-white/10 select-none uppercase tracking-tighter leading-none italic">
-              {{ featuredPost.title }}
-            </span>
           </div>
           <!-- Gradient overlay -->
-          <div class="absolute inset-0 bg-gradient-to-t from-[#0F0F1A] via-[#0F0F1A]/70 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#16213E] via-transparent to-transparent opacity-80"></div>
         </div>
 
-        <!-- Content overlaid on image -->
-        <div class="absolute inset-0 flex flex-col justify-end p-8 md:p-12">
+        <!-- Content -->
+        <div class="p-8 md:p-12 flex flex-col relative z-20">
           <!-- Featured badge -->
           <div class="flex items-center gap-3 mb-4">
             <span class="px-3 py-1 bg-[#E94560] text-white text-xs font-bold rounded-full uppercase tracking-widest shadow-lg">
               ✦ Latest Post
             </span>
           </div>
-          <h3 class="text-3xl md:text-4xl font-black text-[#EAEAEA] mb-3 leading-tight group-hover:text-white transition-colors max-w-3xl">
+          <h3 class="text-3xl md:text-4xl font-black text-[#EAEAEA] mb-3 leading-tight group-hover:text-[#E94560] transition-colors max-w-3xl">
             {{ featuredPost.title }}
           </h3>
           <p class="text-[#A0A0B0] text-base md:text-lg max-w-2xl mb-5 leading-relaxed line-clamp-2">
