@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
+import { optimizedImageUrl } from '../utils/images'
 
 const router = useRouter()
 const { fetchBlogPosts } = useApi()
@@ -143,8 +144,10 @@ const formatDate = (dateString) => {
         <div class="aspect-video bg-[#0F0F1A] w-full overflow-hidden relative">
           <img
             v-if="post.cover_image"
-            :src="post.cover_image"
+            :src="optimizedImageUrl(post.cover_image)"
             :alt="post.title"
+            loading="lazy"
+            decoding="async"
             class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
           />
           <div 

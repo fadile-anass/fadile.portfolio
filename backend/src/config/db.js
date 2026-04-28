@@ -12,7 +12,7 @@ projects: [
     category: 'fullstack',
     featured: 1,
     sort_order: 0,
-    image_url: '/images/projects/distrack.png',
+    image_url: '/images/projects/distrack.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -25,7 +25,7 @@ projects: [
     category: 'frontend',
     featured: 1,
     sort_order: 1,
-    image_url: '/images/projects/ilyatour.png',
+    image_url: '/images/projects/ilyatour.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -38,7 +38,7 @@ projects: [
     category: 'fullstack',
     featured: 1,
     sort_order: 2,
-    image_url: '/images/projects/eventlink.png',
+    image_url: '/images/projects/eventlink.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -51,7 +51,7 @@ projects: [
     category: 'fullstack',
     featured: 1,
     sort_order: 3,
-    image_url: '/images/projects/red-crescent-ims.png',
+    image_url: '/images/projects/red-crescent-ims.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -64,7 +64,7 @@ projects: [
     category: 'frontend',
     featured: 0,
     sort_order: 4,
-    image_url: '/images/projects/installation_electric.png',
+    image_url: '/images/projects/installation_electric.jpg',
     demo_url: 'https://www.installation-electrique.site/',
     github_url: 'https://github.com/fadile-anass/is-electrique-langing-page'
   },
@@ -77,7 +77,7 @@ projects: [
     category: 'fullstack',
     featured: 0,
     sort_order: 5,
-    image_url: '/images/projects/amasante.png',
+    image_url: '/images/projects/amasante.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -90,7 +90,7 @@ projects: [
   //   category: 'backend',
   //   featured: 0,
   //   sort_order: 6,
-  //   image_url: '/images/projects/spinner.png',
+  //   image_url: '/images/projects/spinner.jpg',
   //   demo_url: '#',
   //   github_url: '#'
   // }
@@ -201,7 +201,7 @@ blog_posts: [
 
 <p>Because at the end of the day, <strong>code is just a tool — solving problems is the real skill.</strong></p>
 `,
-  cover_image: '/images/blog/problem-solver.png',
+  cover_image: '/images/blog/problem-solver.jpg',
   read_time: 6,
   tags: '["Mindset", "Career", "Development"]',
   published: 1,
@@ -229,7 +229,7 @@ blog_posts: [
 <h2>Takeaway</h2>
 <p>Good code is important, but useful products win.</p>
     `,
-    cover_image: '/images/blog/web-apps.png',
+    cover_image: '/images/blog/web-apps.jpg',
     read_time: 5,
     tags: '["Web Development", "Product", "UX"]',
     published: 1,
@@ -257,7 +257,7 @@ blog_posts: [
 <h2>Example</h2>
 <p>I applied this approach in Ilya Tour and Distrack systems.</p>
     `,
-    cover_image: '/images/blog/dashboard.png',
+    cover_image: '/images/blog/dashboard.jpg',
     read_time: 6,
     tags: '["Vue.js", "Laravel", "Architecture"]',
     published: 1,
@@ -326,7 +326,7 @@ blog_posts: [
 
 <p>If you want to stand out, don’t just learn how to code — learn why you are building.</p>
 `,
-  cover_image: '/images/blog/business-dev.png',
+  cover_image: '/images/blog/business-dev.jpg',
   read_time: 7,
   tags: '["Business", "Career", "Development"]',
   published: 1,
@@ -350,7 +350,7 @@ blog_posts: [
 <h2>Step 4: Optimize</h2>
 <p>Performance and UX are key to success.</p>
     `,
-    cover_image: '/images/blog/product.png',
+    cover_image: '/images/blog/product.jpg',
     read_time: 5,
     tags: '["Process", "Development", "Startup"]',
     published: 1,
@@ -378,7 +378,7 @@ blog_posts: [
 <h2>Final Thought</h2>
 <p>Systems that provide clarity always create value.</p>
     `,
-    cover_image: '/images/blog/tracking.png',
+    cover_image: '/images/blog/tracking.jpg',
     read_time: 4,
     tags: '["Systems", "Business", "Tech"]',
     published: 1,
@@ -440,7 +440,7 @@ blog_posts: [
 <p>At the end of the day, software is not built for developers — it’s built for people.</p>
 <p><strong>User-centric thinking is what transforms code into real-world impact.</strong></p>
   `,
-  cover_image: '/images/blog/user-centric-thinking.png',
+  cover_image: '/images/blog/user-centric-thinking.jpg',
   read_time: 4,
   tags: '["UX", "Soft Skills", "Frontend"]',
   published: 1,
@@ -622,7 +622,7 @@ blog_posts: [
 
 <p><strong>The real value comes from how you use it.</strong></p>
 `,
-  cover_image: '/images/blog/ai-comparison.png',
+  cover_image: '/images/blog/ai-comparison.jpg',
   read_time: 8,
   tags: '["AI", "RAG", "LLM", "SaaS", "Engineering"]',
   published: 1,
@@ -806,7 +806,7 @@ blog_posts: [
 
 <p><strong>Clarity before execution always wins.</strong></p>
 `,
-  cover_image: '/images/blog/market-research.png',
+  cover_image: '/images/blog/market-research.jpg',
   read_time: 6,
   tags: '["Market Research", "Startup", "Product", "Business", "Strategy"]',
   published: 1,
@@ -982,7 +982,7 @@ blog_posts: [
 
 <p><strong>It brings clients.</strong></p>
 `,
-  cover_image: '/images/blog/website-conversion.png',
+  cover_image: '/images/blog/website-conversion.jpg',
   read_time: 5,
   tags: '["Web Development", "Conversion", "Business", "UX", "Strategy"]',
   published: 1,
@@ -1097,3 +1097,4 @@ export default {
     return await tursoClient.execute({ sql, args });
   }
 };
+

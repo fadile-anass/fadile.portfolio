@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useTiltEffect } from '../../composables/useTiltEffect'
+import { optimizedImageUrl } from '../../utils/images'
 
 const props = defineProps({
   project: {
@@ -39,8 +40,10 @@ const navigateToProject = () => {
     <div class="relative w-full aspect-video overflow-hidden bg-[#0F0F1A]">
       <img 
         v-if="project.image_url" 
-        :src="project.image_url" 
+        :src="optimizedImageUrl(project.image_url)" 
         :alt="project.title" 
+        loading="lazy"
+        decoding="async"
         class="absolute inset-0 w-full h-full object-contain transition-transform duration-700 group-hover:scale-105" 
       />
       <div v-else class="absolute inset-0 flex items-center justify-center text-[#A0A0B0]">

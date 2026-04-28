@@ -1,6 +1,5 @@
-import * as THREE from 'three'
-
 export function useThreeScene() {
+  let THREE
   let scene, camera, renderer, geometry, material, mesh, particles, particleSystem
   let animationId
   let mouseX = 0
@@ -10,7 +9,8 @@ export function useThreeScene() {
   const windowHalfX = window.innerWidth / 2
   const windowHalfY = window.innerHeight / 2
 
-  const init = (container) => {
+  const init = async (container) => {
+    THREE = await import('three')
     scene = new THREE.Scene()
     
     camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
@@ -101,8 +101,8 @@ export function useThreeScene() {
     renderer.render(scene, camera)
   }
 
-  const mountScene = (container) => {
-    init(container)
+  const mountScene = async (container) => {
+    await init(container)
   }
 
   const destroyScene = () => {

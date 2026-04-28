@@ -3,6 +3,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import SectionTitle from '../ui/SectionTitle.vue'
 import { useApi } from '../../composables/useApi'
+import { optimizedImageUrl } from '../../utils/images'
 
 const router = useRouter()
 const { fetchBlogPosts } = useApi()
@@ -68,8 +69,10 @@ const formatDate = (dateString) => {
         <div class="relative h-[250px] md:h-[400px] overflow-hidden w-full">
           <img
             v-if="featuredPost.cover_image"
-            :src="featuredPost.cover_image"
+            :src="optimizedImageUrl(featuredPost.cover_image)"
             :alt="featuredPost.title"
+            loading="lazy"
+            decoding="async"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
           />
           <div 
@@ -129,8 +132,10 @@ const formatDate = (dateString) => {
           <div class="aspect-video bg-[#0F0F1A] w-full overflow-hidden relative">
             <img
               v-if="post.cover_image"
-              :src="post.cover_image"
+              :src="optimizedImageUrl(post.cover_image)"
               :alt="post.title"
+              loading="lazy"
+              decoding="async"
               class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
             />
             <div 

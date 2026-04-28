@@ -9,9 +9,9 @@ const { mountScene, destroyScene } = useThreeScene()
 const roles = ['Full Stack Developer', 'Business Developer', 'Vue.js Specialist', 'Problem Solver']
 const { currentText, isTyping } = useTypewriter(roles, { typeSpeed: 100, deleteSpeed: 50, delayBetween: 2000 })
 
-onMounted(() => {
+onMounted(async () => {
   if (canvasContainer.value) {
-    mountScene(canvasContainer.value)
+    await mountScene(canvasContainer.value)
   }
 })
 

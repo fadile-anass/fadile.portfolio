@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
+import { optimizedImageUrl } from '../utils/images'
 
 const route = useRoute()
 const router = useRouter()
@@ -56,8 +57,10 @@ onMounted(async () => {
         <div class="relative w-full bg-[#16213E] rounded-2xl mb-12 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] border border-[#1A1A2E]">
           <img 
             v-if="project.image_url" 
-            :src="project.image_url" 
+            :src="optimizedImageUrl(project.image_url)" 
             :alt="project.title" 
+            fetchpriority="high"
+            decoding="async"
             class="w-full h-auto block" 
           />
           <div v-else class="aspect-video flex items-center justify-center text-[#606070] bg-[#0F0F1A]">
