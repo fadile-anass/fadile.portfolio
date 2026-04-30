@@ -8,22 +8,38 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      component: HomeView,
+      meta: {
+        title: 'Fadile Anass - Full-Stack Developer & Business-Oriented Engineer',
+        description: 'Portfolio of Fadile Anass, a full-stack developer building scalable web applications, dashboards, and business systems.'
+      }
     },
     {
       path: '/project/:slug',
       name: 'project-detail',
-      component: () => import('../views/ProjectDetailView.vue')
+      component: () => import('../views/ProjectDetailView.vue'),
+      meta: {
+        title: 'Project Case Study - Fadile Anass',
+        description: 'Explore a selected full-stack, dashboard, or business web application project by Fadile Anass.'
+      }
     },
     {
       path: '/blog',
       name: 'blog-list',
-      component: () => import('../views/BlogListView.vue')
+      component: () => import('../views/BlogListView.vue'),
+      meta: {
+        title: 'Blog - Fadile Anass',
+        description: 'Articles by Fadile Anass about web development, business systems, AI, product thinking, and software engineering.'
+      }
     },
     {
       path: '/blog/:slug',
       name: 'blog-detail',
-      component: () => import('../views/BlogDetailView.vue')
+      component: () => import('../views/BlogDetailView.vue'),
+      meta: {
+        title: 'Article - Fadile Anass Blog',
+        description: 'Read practical notes from Fadile Anass on web development, business, AI, and product strategy.'
+      }
     },
     {
       path: '/:pathMatch(.*)*',
@@ -87,5 +103,40 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
+
+router.afterEach((to) => {
+  const title = to.meta.title || 'Fadile Anass - Full-Stack Developer'
+  const description = to.meta.description || 'Full-stack developer building scalable web applications and business systems.'
+  const canonical = `${window.location.origin}${to.path}`
+
+  document.title = title
+  updateMeta('description', description)
+  updateMeta('og:title', title, 'property')
+  updateMeta('og:description', description, 'property')
+  updateMeta('og:url', canonical, 'property')
+  updateMeta('twitter:title', title)
+  updateMeta('twitter:description', description)
+  updateCanonical(canonical)
+})
+
+function updateMeta(name, content, attr = 'name') {
+  let tag = document.head.querySelector(`meta[${attr}="${name}"]`)
+  if (!tag) {
+    tag = document.createElement('meta')
+    tag.setAttribute(attr, name)
+    document.head.appendChild(tag)
+  }
+  tag.setAttribute('content', content)
+}
+
+function updateCanonical(href) {
+  let tag = document.head.querySelector('link[rel="canonical"]')
+  if (!tag) {
+    tag = document.createElement('link')
+    tag.setAttribute('rel', 'canonical')
+    document.head.appendChild(tag)
+  }
+  tag.setAttribute('href', href)
+}
 
 export default router

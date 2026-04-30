@@ -1,7 +1,7 @@
 <script setup>
 import SectionTitle from '../ui/SectionTitle.vue'
 import TimelineItem from '../ui/TimelineItem.vue'
-import profileImage from '../../assets/images/about_photo.png';
+import profileImage from '../../assets/images/about_photo.jpg';
 
 
 const soft_skills = [
@@ -29,7 +29,7 @@ const soft_skills = [
         <div class="relative w-64 h-64 rounded-full p-2 group">
           <div class="absolute inset-0 rounded-full border-2 border-[#1A1A2E] transition-colors duration-300 group-hover:border-[#E94560]"></div>
           <div class="w-full h-full rounded-full overflow-hidden bg-[#16213E]">
-            <img :src="profileImage" alt="Fadile Anass" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
+            <img :src="profileImage" alt="Fadile Anass" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
           </div>
         </div>
       </div>

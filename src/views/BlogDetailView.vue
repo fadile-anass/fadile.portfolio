@@ -1,8 +1,10 @@
 <script setup>
-import { ref, onMounted, onUnmounted, nextTick, computed } from 'vue'
+import { ref, onMounted, onUnmounted, nextTick, computed, defineAsyncComponent } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
-import ChatBot from '../components/ChatBot/Chatbot.vue'
+import { optimizedImageUrl } from '../utils/images'
+
+const ChatBot = defineAsyncComponent(() => import('../components/ChatBot/Chatbot.vue'))
 
 const route = useRoute()
 const router = useRouter()
@@ -230,7 +232,7 @@ const blogContext = computed(() => {
 
           <!-- Cover Image -->
           <div class="relative w-full rounded-2xl mb-12 overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.5)] border border-[#1A1A2E] aspect-video bg-[#16213E]">
-            <img v-if="post.cover_image" :src="post.cover_image" :alt="post.title" class="w-full h-full object-cover" />
+            <img v-if="post.cover_image" :src="optimizedImageUrl(post.cover_image)" :alt="post.title" fetchpriority="high" decoding="async" class="w-full h-full object-cover" />
             <div v-else class="w-full h-full flex items-center justify-center text-center p-12 bg-gradient-to-br from-[#1A1A2E] via-[#16213E] to-[#E94560]/20">
               <span class="text-5xl md:text-7xl font-black text-white/5 select-none uppercase tracking-tighter leading-none italic">
                 {{ post.title }}
@@ -364,7 +366,7 @@ const blogContext = computed(() => {
                 class="group bg-[#16213E] rounded-2xl overflow-hidden border border-[#1A1A2E] hover:border-[#E94560]/40 transition-all duration-300 cursor-pointer hover:-translate-y-1 hover:shadow-[0_15px_35px_rgba(0,0,0,0.3)] flex flex-col"
               >
                 <div class="aspect-video overflow-hidden bg-[#0F0F1A] relative">
-                  <img v-if="rp.cover_image" :src="rp.cover_image" :alt="rp.title" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <img v-if="rp.cover_image" :src="optimizedImageUrl(rp.cover_image)" :alt="rp.title" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   <div 
                     v-else 
                     class="w-full h-full flex items-center justify-center text-center p-4 bg-gradient-to-br from-[#1A1A2E] via-[#16213E] to-[#E94560]/10"

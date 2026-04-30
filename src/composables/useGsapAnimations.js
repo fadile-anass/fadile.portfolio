@@ -1,11 +1,17 @@
-import gsap from 'gsap'
-import ScrollTrigger from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+let gsap
+let ScrollTrigger
 
 export function useGsapAnimations() {
   
-  const initScrollAnimations = () => {
+  const initScrollAnimations = async () => {
+    if (!gsap || !ScrollTrigger) {
+      const gsapModule = await import('gsap')
+      const scrollTriggerModule = await import('gsap/ScrollTrigger')
+      gsap = gsapModule.default
+      ScrollTrigger = scrollTriggerModule.default
+      gsap.registerPlugin(ScrollTrigger)
+    }
+
     // Hero Load Sequence
     const tl = gsap.timeline()
     
@@ -66,7 +72,7 @@ export function useGsapAnimations() {
   }
 
   const cleanup = () => {
-    ScrollTrigger.getAll().forEach(t => t.kill())
+    ScrollTrigger?.getAll().forEach(t => t.kill())
   }
 
   return { initScrollAnimations, cleanup }

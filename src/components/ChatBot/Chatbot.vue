@@ -74,7 +74,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch, nextTick, defineProps } from 'vue'
+import { ref, onMounted, watch, nextTick } from 'vue'
 import './Chatbot.css'
 
 const props = defineProps({

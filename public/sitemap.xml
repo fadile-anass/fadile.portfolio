@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://www.fadile.site/</loc>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://www.fadile.site/blog</loc>
+    <priority>0.8</priority>
+  </url>
+  <url><loc>https://www.fadile.site/project/distrack-field-tracking</loc><priority>0.7</priority></url>
+  <url><loc>https://www.fadile.site/project/travel-agency-dashboard</loc><priority>0.7</priority></url>
+  <url><loc>https://www.fadile.site/project/events-management-app</loc><priority>0.7</priority></url>
+  <url><loc>https://www.fadile.site/project/red-crescent-ims</loc><priority>0.7</priority></url>
+  <url><loc>https://www.fadile.site/project/security-camera-garage-door-morocco</loc><priority>0.7</priority></url>
+  <url><loc>https://www.fadile.site/project/health-app</loc><priority>0.7</priority></url>
+  <url><loc>https://www.fadile.site/blog/developer-to-problem-solver</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/why-web-apps-fail</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/scalable-dashboards-vue-laravel</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/business-side-of-dev</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/idea-to-product</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/tracking-systems-business</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/user-centric-thinking</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/rag-vs-prompt-vs-function-vs-finetuning</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/market-research-validate-before-building</loc><priority>0.6</priority></url>
+  <url><loc>https://www.fadile.site/blog/why-websites-dont-bring-clients</loc><priority>0.6</priority></url>
+</urlset>

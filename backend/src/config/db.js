@@ -12,7 +12,7 @@ projects: [
     category: 'fullstack',
     featured: 1,
     sort_order: 0,
-    image_url: '/images/projects/distrack.png',
+    image_url: '/images/projects/distrack.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -25,7 +25,7 @@ projects: [
     category: 'frontend',
     featured: 1,
     sort_order: 1,
-    image_url: '/images/projects/ilyatour.png',
+    image_url: '/images/projects/ilyatour.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -38,7 +38,7 @@ projects: [
     category: 'fullstack',
     featured: 1,
     sort_order: 2,
-    image_url: '/images/projects/eventlink.png',
+    image_url: '/images/projects/eventlink.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -51,7 +51,7 @@ projects: [
     category: 'fullstack',
     featured: 1,
     sort_order: 3,
-    image_url: '/images/projects/red-crescent-ims.png',
+    image_url: '/images/projects/red-crescent-ims.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -64,7 +64,7 @@ projects: [
     category: 'frontend',
     featured: 0,
     sort_order: 4,
-    image_url: '/images/projects/installation_electric.png',
+    image_url: '/images/projects/installation_electric.jpg',
     demo_url: 'https://www.installation-electrique.site/',
     github_url: 'https://github.com/fadile-anass/is-electrique-langing-page'
   },
@@ -77,7 +77,7 @@ projects: [
     category: 'fullstack',
     featured: 0,
     sort_order: 5,
-    image_url: '/images/projects/amasante.png',
+    image_url: '/images/projects/amasante.jpg',
     demo_url: '#',
     github_url: '#'
   },
@@ -90,7 +90,7 @@ projects: [
   //   category: 'backend',
   //   featured: 0,
   //   sort_order: 6,
-  //   image_url: '/images/projects/spinner.png',
+  //   image_url: '/images/projects/spinner.jpg',
   //   demo_url: '#',
   //   github_url: '#'
   // }
@@ -201,7 +201,7 @@ blog_posts: [
 
 <p>Because at the end of the day, <strong>code is just a tool — solving problems is the real skill.</strong></p>
 `,
-  cover_image: '/images/blog/problem-solver.png',
+  cover_image: '/images/blog/problem-solver.jpg',
   read_time: 6,
   tags: '["Mindset", "Career", "Development"]',
   published: 1,
@@ -229,7 +229,7 @@ blog_posts: [
 <h2>Takeaway</h2>
 <p>Good code is important, but useful products win.</p>
     `,
-    cover_image: '/images/blog/web-apps.png',
+    cover_image: '/images/blog/web-apps.jpg',
     read_time: 5,
     tags: '["Web Development", "Product", "UX"]',
     published: 1,
@@ -257,7 +257,7 @@ blog_posts: [
 <h2>Example</h2>
 <p>I applied this approach in Ilya Tour and Distrack systems.</p>
     `,
-    cover_image: '/images/blog/dashboard.png',
+    cover_image: '/images/blog/dashboard.jpg',
     read_time: 6,
     tags: '["Vue.js", "Laravel", "Architecture"]',
     published: 1,
@@ -326,7 +326,7 @@ blog_posts: [
 
 <p>If you want to stand out, don’t just learn how to code — learn why you are building.</p>
 `,
-  cover_image: '/images/blog/business-dev.png',
+  cover_image: '/images/blog/business-dev.jpg',
   read_time: 7,
   tags: '["Business", "Career", "Development"]',
   published: 1,
@@ -350,7 +350,7 @@ blog_posts: [
 <h2>Step 4: Optimize</h2>
 <p>Performance and UX are key to success.</p>
     `,
-    cover_image: '/images/blog/product.png',
+    cover_image: '/images/blog/product.jpg',
     read_time: 5,
     tags: '["Process", "Development", "Startup"]',
     published: 1,
@@ -378,7 +378,7 @@ blog_posts: [
 <h2>Final Thought</h2>
 <p>Systems that provide clarity always create value.</p>
     `,
-    cover_image: '/images/blog/tracking.png',
+    cover_image: '/images/blog/tracking.jpg',
     read_time: 4,
     tags: '["Systems", "Business", "Tech"]',
     published: 1,
@@ -440,7 +440,7 @@ blog_posts: [
 <p>At the end of the day, software is not built for developers — it’s built for people.</p>
 <p><strong>User-centric thinking is what transforms code into real-world impact.</strong></p>
   `,
-  cover_image: '/images/blog/user-centric-thinking.png',
+  cover_image: '/images/blog/user-centric-thinking.jpg',
   read_time: 4,
   tags: '["UX", "Soft Skills", "Frontend"]',
   published: 1,
@@ -622,7 +622,7 @@ blog_posts: [
 
 <p><strong>The real value comes from how you use it.</strong></p>
 `,
-  cover_image: '/images/blog/ai-comparison.png',
+  cover_image: '/images/blog/ai-comparison.jpg',
   read_time: 8,
   tags: '["AI", "RAG", "LLM", "SaaS", "Engineering"]',
   published: 1,
@@ -806,7 +806,7 @@ blog_posts: [
 
 <p><strong>Clarity before execution always wins.</strong></p>
 `,
-  cover_image: '/images/blog/market-research.png',
+  cover_image: '/images/blog/market-research.jpg',
   read_time: 6,
   tags: '["Market Research", "Startup", "Product", "Business", "Strategy"]',
   published: 1,
@@ -982,11 +982,189 @@ blog_posts: [
 
 <p><strong>It brings clients.</strong></p>
 `,
-  cover_image: '/images/blog/website-conversion.png',
+  cover_image: '/images/blog/website-conversion.jpg',
   read_time: 5,
   tags: '["Web Development", "Conversion", "Business", "UX", "Strategy"]',
   published: 1,
   created_at: '2026-04-28T18:00:00Z'
+},
+{
+  id: 11,
+  title: 'From Idea to MVP with AI: Why Most Products Fail Before Development',
+  slug: 'idea-to-mvp-with-ai',
+  excerpt: 'Building with AI is faster than ever. But speed is not the problem — structure is. Here’s how to go from idea to MVP using AI to define product specs and roadmaps before coding.',
+  content: `
+<h2>Introduction</h2>
+<p>Today, building a product is easier than ever.</p>
+
+<p>With AI, you can generate code, design interfaces, and launch quickly.</p>
+
+<p>But faster building doesn’t mean better products.</p>
+
+<p>In fact, it creates a new problem.</p>
+
+<p><strong>You can now build the wrong product faster than ever.</strong></p>
+
+<p>This is not a technical issue.</p>
+
+<p><strong>It’s a structure problem.</strong></p>
+
+<p>Before writing code, you need clarity.</p>
+
+<hr />
+
+<h2>1. The Real Problem: No Structure</h2>
+<p>Most ideas don’t fail because of bad development.</p>
+
+<p>They fail because the idea was never clearly defined.</p>
+
+<p>When an idea comes in, it is often:</p>
+
+<ul>
+<li>Too broad</li>
+<li>Missing key details</li>
+<li>Not validated</li>
+<li>Overloaded with features</li>
+</ul>
+
+<p>Starting development at this stage leads to confusion.</p>
+
+<p>You are not building a product.</p>
+
+<p>You are building assumptions.</p>
+
+<p><strong>Key role:</strong> Clarity (define what you are actually building)</p>
+
+<hr />
+
+<h2>2. Jumping Too Fast into Code</h2>
+<p>AI makes it easy to start coding immediately.</p>
+
+<p>But speed can be misleading.</p>
+
+<p>Many developers:</p>
+
+<ul>
+<li>Generate code quickly</li>
+<li>Build features immediately</li>
+<li>Skip planning</li>
+</ul>
+
+<p>This leads to wasted time and rework.</p>
+
+<p><strong>Because building fast without direction is still inefficient.</strong></p>
+
+<p><strong>Key role:</strong> Direction (build with purpose, not speed)</p>
+
+<hr />
+
+<h2>3. No Clear MVP Definition</h2>
+<p>One of the biggest mistakes is trying to build too much.</p>
+
+<p>Without a clear MVP, projects become complex very quickly.</p>
+
+<h3>Common issues</h3>
+<ul>
+<li>Too many features in the first version</li>
+<li>No prioritization</li>
+<li>No clear value delivered</li>
+</ul>
+
+<p>An MVP is not a smaller product.</p>
+
+<p>It is a focused product.</p>
+
+<p><strong>Key role:</strong> Focus (deliver essential value first)</p>
+
+<hr />
+
+<h2>4. No Roadmap Before Development</h2>
+<p>Many projects start without a clear plan.</p>
+
+<p>This creates uncertainty during development.</p>
+
+<h3>Common problems</h3>
+<ul>
+<li>No clear phases</li>
+<li>Features built in the wrong order</li>
+<li>Dependencies discovered too late</li>
+</ul>
+
+<p>Without a roadmap, development becomes reactive.</p>
+
+<p>Instead of executing, you are constantly adjusting.</p>
+
+<p><strong>Key role:</strong> Planning (structure execution before coding)</p>
+
+<hr />
+
+<h2>A Practical Approach Using AI</h2>
+<p>AI should not be used only for coding.</p>
+
+<p>It should be used to structure decisions.</p>
+
+<p>A simple and effective workflow:</p>
+
+<ul>
+<li>Idea → define the problem and users</li>
+<li>Structure → build a product specification</li>
+<li>MVP → select only essential features</li>
+<li>Roadmap → plan development phases</li>
+<li>Code → execute with clarity</li>
+</ul>
+
+<p>This approach helps you:</p>
+
+<ul>
+<li>Avoid building unnecessary features</li>
+<li>Reduce development time</li>
+<li>Improve product quality</li>
+</ul>
+
+<hr />
+
+<h2>Common Mistakes</h2>
+<ul>
+<li>Starting with code instead of structure</li>
+<li>Relying on AI only for development</li>
+<li>Building too many features too early</li>
+<li>Skipping product planning</li>
+</ul>
+
+<p>These mistakes are common.</p>
+
+<p>And they directly impact the success of your product.</p>
+
+<hr />
+
+<h2>Conclusion</h2>
+<p>AI changed how fast we can build.</p>
+
+<p>But it didn’t change what makes a product successful.</p>
+
+<p><strong>The goal is not to build faster.</strong></p>
+
+<p><strong>The goal is to build the right thing.</strong></p>
+
+<p>Before starting your next project, ask yourself:</p>
+
+<ul>
+<li>Is the idea clearly defined?</li>
+<li>Is the MVP focused?</li>
+<li>Is there a roadmap?</li>
+</ul>
+
+<p>If not, that’s where to start.</p>
+
+<p><strong>Because the best products are not built faster.</strong></p>
+
+<p><strong>They are built with clarity.</strong></p>
+`,
+  cover_image: '/images/blog/idea-to-mvp-ai.jpg',
+  read_time: 5,
+  tags: '["AI", "Product Development", "MVP", "Startups", "Strategy"]',
+  published: 1,
+  created_at: '2026-05-01T18:00:00Z'
 }
 ],
   contacts: [],
@@ -1097,3 +1275,4 @@ export default {
     return await tursoClient.execute({ sql, args });
   }
 };
+

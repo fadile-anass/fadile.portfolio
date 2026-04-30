@@ -8,16 +8,17 @@ import ServicesSection from '../components/sections/ServicesSection.vue'
 import BlogSection from '../components/sections/BlogSection.vue'
 import ContactSection from '../components/sections/ContactSection.vue'
 import Footer from '../components/layout/Footer.vue'
-import ChatBot from '../components/ChatBot/Chatbot.vue'
 import { useGsapAnimations } from '../composables/useGsapAnimations'
-import { onMounted, onUnmounted } from 'vue'
+import { defineAsyncComponent, onMounted, onUnmounted } from 'vue'
+
+const ChatBot = defineAsyncComponent(() => import('../components/ChatBot/Chatbot.vue'))
 
 const { initScrollAnimations, cleanup } = useGsapAnimations()
 
 onMounted(() => {
   // Small delay to ensure DOM is ready
-  setTimeout(() => {
-    initScrollAnimations()
+  setTimeout(async () => {
+    await initScrollAnimations()
   }, 100)
 })
 
