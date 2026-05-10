@@ -29,6 +29,21 @@ const allTags = computed(() => {
   return [...tagSet]
 })
 
+const topTags = computed(() => {
+  const tagCounts = new Map()
+
+  posts.value.forEach(post => {
+    JSON.parse(post.tags || '[]').forEach(tag => {
+      tagCounts.set(tag, (tagCounts.get(tag) || 0) + 1)
+    })
+  })
+
+  return [...tagCounts.entries()]
+    .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
+    .slice(0, 5)
+    .map(([tag]) => tag)
+})
+
 const filteredPosts = computed(() => {
   let result = posts.value
 
@@ -90,18 +105,56 @@ const formatDate = (dateString) => {
       </div>
 
       <!-- Tag Filters -->
-      <div class="flex flex-wrap gap-2 flex-grow overflow-x-auto pb-1 hide-scrollbar">
-        <button
-          v-for="tag in allTags"
-          :key="tag"
-          @click="activeTag = tag"
-          :class="[
-            'px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 whitespace-nowrap',
-            activeTag === tag
-              ? 'bg-[#E94560] text-white shadow-lg shadow-[#E94560]/30 border border-[#E94560]'
-              : 'bg-[#0F0F1A] text-[#A0A0B0] border border-[#1A1A2E] hover:border-[#E94560]/40 hover:text-[#E94560]'
-          ]"
-        >{{ tag }}</button>
+      <div class="w-full lg:flex-1">
+        <div class="flex flex-col gap-3">
+          <div class="flex flex-wrap gap-2">
+            <button
+              @click="activeTag = 'All'"
+              :class="[
+                'px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 whitespace-nowrap',
+                activeTag === 'All'
+                  ? 'bg-[#E94560] text-white shadow-lg shadow-[#E94560]/30 border border-[#E94560]'
+                  : 'bg-[#0F0F1A] text-[#A0A0B0] border border-[#1A1A2E] hover:border-[#E94560]/40 hover:text-[#E94560]'
+              ]"
+            >
+              All Posts
+            </button>
+            <button
+              v-for="tag in topTags"
+              :key="tag"
+              @click="activeTag = tag"
+              :class="[
+                'px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all duration-200 whitespace-nowrap',
+                activeTag === tag
+                  ? 'bg-[#E94560] text-white shadow-lg shadow-[#E94560]/30 border border-[#E94560]'
+                  : 'bg-[#0F0F1A] text-[#A0A0B0] border border-[#1A1A2E] hover:border-[#E94560]/40 hover:text-[#E94560]'
+              ]"
+            >{{ tag }}</button>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <label for="tag-filter" class="text-xs font-semibold uppercase tracking-[0.24em] text-[#606070] shrink-0">
+              More Tags
+            </label>
+            <div class="relative min-w-0 flex-1 max-w-sm">
+              <select
+                id="tag-filter"
+                v-model="activeTag"
+                class="w-full bg-[#0F0F1A] text-[#EAEAEA] border border-[#1A1A2E] focus:border-[#E94560] rounded-xl px-4 py-3 outline-none appearance-none pr-10 cursor-pointer"
+                style="background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org/2000/svg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23A0A0B0%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C/polyline%3E%3C/svg%3E'); background-repeat: no-repeat; background-position: right 12px center; background-size: 16px;"
+              >
+                <option value="All">All Tags</option>
+                <option
+                  v-for="tag in allTags.filter(tag => tag !== 'All')"
+                  :key="tag"
+                  :value="tag"
+                >
+                  {{ tag }}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Sort -->
@@ -203,12 +256,5 @@ const formatDate = (dateString) => {
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-.hide-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
 }
 </style>
