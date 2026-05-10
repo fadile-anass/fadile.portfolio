@@ -1546,7 +1546,7 @@ blog_posts: [
 
 <p><strong>And how much of it you own.</strong></p>
 `,
-  "cover_image": "/images/blog/own-your-ai.jpg",
+  "cover_image": "/images/blog/own-your-ai-blog.jpg",
   "read_time": 6,
   "tags": "[\"AI\", \"LLM\", \"Open Source\", \"VPS\", \"Cost Optimization\", \"Automation\", \"Tech Strategy\"]",
   "published": 1,
