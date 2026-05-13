@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
 import db from '../backend/src/config/db.js';
+import { loadPublishedBlogPosts, loadPublishedBlogPostBySlug } from '../backend/src/content/blogs.js';
 import { Resend } from 'resend';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -92,7 +93,7 @@ app.get('/api/services', (req, res) => {
 
 app.get('/api/blog', (req, res) => {
   try {
-    const posts = db.query('blog_posts').filter((p: any) => p.published === 1).sort((a: any, b: any) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    const posts = loadPublishedBlogPosts();
     res.json(posts);
   } catch (error: any) {
     res.status(500).json({ error: error.message });
@@ -102,11 +103,25 @@ app.get('/api/blog', (req, res) => {
 app.get('/api/blog/:slug', (req, res) => {
   try {
     const { slug } = req.params;
-    const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+    const allPosts = loadPublishedBlogPosts();
+    const post = loadPublishedBlogPostBySlug(slug);
     if (!post) {
       return res.status(404).json({ error: 'Blog post not found' });
     }
-    res.json(post);
+    const postTags: string[] = JSON.parse(post.tags || '[]');
+    const relatedPosts = allPosts
+      .filter((candidate: any) => candidate.slug !== slug)
+      .map((candidate: any) => {
+        const candidateTags: string[] = JSON.parse(candidate.tags || '[]');
+        const shared = candidateTags.filter(tag => postTags.includes(tag)).length;
+        return { ...candidate, _shared: shared };
+      })
+      .filter((candidate: any) => candidate._shared > 0)
+      .sort((a: any, b: any) => b._shared - a._shared)
+      .slice(0, 2)
+      .map(({ _shared, content, ...rest }: any) => rest);
+
+    res.json({ ...post, relatedPosts });
   } catch (error: any) {
     res.status(500).json({ error: error.message });
   }
@@ -116,7 +131,7 @@ app.get('/api/blog/:slug', (req, res) => {
 app.get('/api/blog/:slug/reactions', async (req, res) => {
   try {
     const { slug } = req.params;
-    const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+    const post = loadPublishedBlogPostBySlug(slug);
     if (!post) {
       return res.status(404).json({ error: 'Post not found' });
     }
@@ -145,7 +160,7 @@ app.post('/api/blog/:slug/reactions', async (req, res) => {
   try {
     const { slug } = req.params;
     const { emoji } = req.body;
-    const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+    const post = loadPublishedBlogPostBySlug(slug);
     if (!post) return res.status(404).json({ error: 'Post not found' });
 
     const validEmojis = ['🔥', '❤️', '👏', '💡', '🚀', '👀'];
@@ -188,7 +203,7 @@ app.post('/api/blog/:slug/reactions', async (req, res) => {
 app.get('/api/blog/:slug/comments', async (req, res) => {
   try {
     const { slug } = req.params;
-    const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+    const post = loadPublishedBlogPostBySlug(slug);
     if (!post) return res.status(404).json({ error: 'Post not found' });
     
     if (process.env.TURSO_DATABASE_URL) {
@@ -209,7 +224,7 @@ app.post('/api/blog/:slug/comments', async (req, res) => {
   try {
     const { slug } = req.params;
     const { author_name, content } = req.body;
-    const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+    const post = loadPublishedBlogPostBySlug(slug);
     if (!post) return res.status(404).json({ error: 'Post not found' });
 
     if (!author_name || author_name.trim().length < 2 || author_name.trim().length > 50) {
