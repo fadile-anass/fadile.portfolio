@@ -1,0 +1,12 @@
+{
+  "id": 2,
+  "title": "Why Most Web Apps Fail (And How to Build Ones That Succeed)",
+  "slug": "why-web-apps-fail",
+  "excerpt": "Many web apps fail not because of bad code, but because of bad thinking. Let’s break down what actually matters.",
+  "content": "\n<h2>The Real Problem</h2>\n<p>Most developers focus too much on technology and not enough on user value.</p>\n\n<h2>What Actually Matters</h2>\n<ul>\n<li>Solving a real problem</li>\n<li>Simple and intuitive UX</li>\n<li>Performance and reliability</li>\n</ul>\n\n<h2>My Approach</h2>\n<p>When building platforms like Eventlink or management systems, I focus on usability and business logic first.</p>\n\n<h2>Takeaway</h2>\n<p>Good code is important, but useful products win.</p>\n    ",
+  "cover_image": "/blogs/why-web-apps-fail/web-apps.jpg",
+  "read_time": 5,
+  "tags": "[\"Web Development\", \"Product\", \"UX\"]",
+  "published": 1,
+  "created_at": "2026-04-13T11:00:00Z"
+}

@@ -7,6 +7,7 @@ import rateLimit from 'express-rate-limit';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import db from './backend/src/config/db.js';
+import { loadPublishedBlogPosts, loadPublishedBlogPostBySlug } from './backend/src/content/blogs.js';
 import dotenv from 'dotenv';
 import { Resend } from 'resend';
 import jwt from 'jsonwebtoken';
@@ -110,7 +111,7 @@ async function startServer() {
 
   app.get('/api/blog', (req, res) => {
     try {
-      const posts = db.query('blog_posts').filter(p => p.published === 1).sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+      const posts = loadPublishedBlogPosts();
       res.json(posts);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -120,8 +121,8 @@ async function startServer() {
   app.get('/api/blog/:slug', (req, res) => {
     try {
       const { slug } = req.params;
-      const allPosts = db.query('blog_posts').filter((p: any) => p.published === 1);
-      const post = allPosts.find((p: any) => p.slug === slug);
+      const allPosts = loadPublishedBlogPosts();
+      const post = loadPublishedBlogPostBySlug(slug);
       if (!post) {
         return res.status(404).json({ error: 'Blog post not found' });
       }
@@ -149,7 +150,7 @@ async function startServer() {
   app.get('/api/blog/:slug/reactions', async (req, res) => {
     try {
       const { slug } = req.params;
-      const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+      const post = loadPublishedBlogPostBySlug(slug);
       if (!post) {
         return res.status(404).json({ error: 'Post not found' });
       }
@@ -178,7 +179,7 @@ async function startServer() {
     try {
       const { slug } = req.params;
       const { emoji } = req.body;
-      const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+      const post = loadPublishedBlogPostBySlug(slug);
       if (!post) return res.status(404).json({ error: 'Post not found' });
 
       const validEmojis = ['🔥', '❤️', '👏', '💡', '🚀', '👀'];
@@ -221,7 +222,7 @@ async function startServer() {
   app.get('/api/blog/:slug/comments', async (req, res) => {
     try {
       const { slug } = req.params;
-      const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+      const post = loadPublishedBlogPostBySlug(slug);
       if (!post) return res.status(404).json({ error: 'Post not found' });
       
       if (process.env.TURSO_DATABASE_URL) {
@@ -242,7 +243,7 @@ async function startServer() {
     try {
       const { slug } = req.params;
       const { author_name, content } = req.body;
-      const post = db.query('blog_posts').find((p: any) => p.slug === slug);
+      const post = loadPublishedBlogPostBySlug(slug);
       if (!post) return res.status(404).json({ error: 'Post not found' });
 
       if (!author_name || author_name.trim().length < 2 || author_name.trim().length > 50) {
