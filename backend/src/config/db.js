@@ -123,10 +123,150 @@ projects: [
     { id: 5, company: 'Ancona Media', role: 'Web Dev Intern', type: 'internship', start_date: '2023-05-01', end_date: '2023-06-01', description: 'Assisted in web development projects.', location: 'Casablanca, Morocco' }
   ],
   services: [
-    { id: 1, title: 'Full Stack Web Development', description: 'End-to-end web application development using modern frameworks.', icon_name: 'code', sort_order: 1 },
-    { id: 2, title: 'UI/UX Integration', description: 'Pixel-perfect implementation of designs with smooth animations.', icon_name: 'layers', sort_order: 2 },
-    { id: 3, title: 'API & Backend Engineering', description: 'Robust, scalable, and secure RESTful APIs and database design.', icon_name: 'server', sort_order: 3 },
-    { id: 4, title: 'Business Development & CRM', description: 'Integrating technical solutions with business growth strategies.', icon_name: 'chart', sort_order: 4 }
+    {
+      id: 1,
+      title: 'Full Stack Web Development',
+      description: 'Complete, production-ready web applications built from the ground up — from database design to polished frontend UI.',
+      what_is_it: 'End-to-end development of web applications using Vue.js on the frontend and Laravel or Node.js on the backend. Every project is built to be scalable, secure, and maintainable.',
+      who_is_it_for: 'Startups, Moroccan SMEs, and businesses that need a complete digital product without hiring multiple specialists.',
+      benefits: [
+        'Single point of contact for all layers of the stack',
+        'Consistent architecture from API to UI',
+        'Faster delivery with no coordination overhead',
+        'Long-term maintainability with clean, documented code'
+      ],
+      technologies: ['Vue.js 3', 'Laravel', 'Node.js', 'MySQL', 'REST API', 'Git'],
+      icon_name: 'code',
+      sort_order: 1
+    },
+    {
+      id: 2,
+      title: 'Vue.js Frontend Development',
+      description: 'Responsive, animated, and high-performance interfaces built with Vue.js 3 Composition API — pixel-perfect from design to code.',
+      what_is_it: 'Specialised frontend development using Vue.js 3 with GSAP animations, dynamic routing, composables, and state management for complex user interfaces.',
+      who_is_it_for: 'Businesses that already have a backend and need a modern, reactive frontend experience.',
+      benefits: [
+        'Smooth, animated user experiences that impress visitors',
+        'Reactive data binding for complex dashboards and forms',
+        'Mobile-first, fully responsive layouts',
+        'SEO-optimised SPA or SSR as needed'
+      ],
+      technologies: ['Vue.js 3', 'Vite', 'GSAP', 'Tailwind CSS', 'Pinia', 'Vue Router'],
+      icon_name: 'layers',
+      sort_order: 2
+    },
+    {
+      id: 3,
+      title: 'Laravel Backend & API Development',
+      description: 'Robust, secure, and scalable RESTful APIs and server-side applications built with Laravel — powering your business logic.',
+      what_is_it: 'Backend development using Laravel with clean architecture, Eloquent ORM, authentication (JWT / Sanctum), and well-documented API endpoints.',
+      who_is_it_for: 'Teams that need a reliable API for a mobile app, SaaS product, or frontend application.',
+      benefits: [
+        'Secure authentication and authorisation out of the box',
+        'Structured, maintainable codebase following Laravel best practices',
+        'Efficient database relationships with Eloquent ORM',
+        'Easy integration with third-party services and payment gateways'
+      ],
+      technologies: ['Laravel', 'PHP', 'MySQL', 'JWT', 'REST API', 'Sanctum'],
+      icon_name: 'server',
+      sort_order: 3
+    },
+    {
+      id: 4,
+      title: 'SaaS Product Development',
+      description: 'Architecture and development of Software-as-a-Service products — from MVP to scalable multi-tenant platforms.',
+      what_is_it: 'Building SaaS products with multi-tenancy, subscription management, user roles, admin panels, and API-first design that scales with your business.',
+      who_is_it_for: 'Entrepreneurs and businesses launching a subscription-based digital product.',
+      benefits: [
+        'Multi-tenant architecture from day one',
+        'Scalable infrastructure designed for growth',
+        'User management, roles, and permissions system',
+        'Billing and subscription integration ready'
+      ],
+      technologies: ['Vue.js', 'Laravel', 'Stripe API', 'MySQL', 'Docker', 'Node.js'],
+      icon_name: 'saas',
+      sort_order: 4
+    },
+    {
+      id: 5,
+      title: 'REST API Design & Integration',
+      description: 'Design, develop, and document RESTful APIs that power web apps, mobile apps, and third-party integrations.',
+      what_is_it: 'Full API lifecycle management: design, development, versioning, documentation, and integration with external services like payment gateways, SMS providers, and CRMs.',
+      who_is_it_for: 'Businesses that need to expose their data to other systems or build an API for a mobile app.',
+      benefits: [
+        'Clean, versioned API endpoints following REST standards',
+        'Comprehensive Postman / OpenAPI documentation',
+        'Webhook integration for real-time event notifications',
+        'Rate limiting, authentication, and security built in'
+      ],
+      technologies: ['Node.js', 'Express.js', 'Laravel', 'OpenAPI', 'Postman', 'JWT'],
+      icon_name: 'api',
+      sort_order: 5
+    },
+    {
+      id: 6,
+      title: 'AI Integration & Chatbot Development',
+      description: 'Integrate AI capabilities into your web application — chatbots, RAG systems, function calling, and intelligent automation.',
+      what_is_it: 'Building AI-powered features using the OpenAI API or Google Gemini API, including RAG pipelines for context-aware responses, function calling for system automation, and custom chatbot UIs.',
+      who_is_it_for: 'Businesses wanting to automate customer support, data retrieval, or internal workflows using AI.',
+      benefits: [
+        'Context-aware AI that knows your business data (RAG)',
+        'AI that can take actions in your system (function calling)',
+        'Reduced customer support workload',
+        'Intelligent document processing and summarisation'
+      ],
+      technologies: ['OpenAI API', 'Gemini API', 'Node.js', 'Vue.js', 'RAG', 'Vector DBs'],
+      icon_name: 'ai',
+      sort_order: 6
+    },
+    {
+      id: 7,
+      title: 'Admin Dashboard & Analytics Panel',
+      description: 'Custom admin dashboards and analytics interfaces that give your team full visibility and control over business operations.',
+      what_is_it: 'Development of data-rich management panels with charts, KPI cards, filtering, pagination, and role-based access — giving decision-makers the information they need, when they need it.',
+      who_is_it_for: 'Operations teams, managers, and business owners who need real-time insights into their business.',
+      benefits: [
+        'Real-time data visualisation with interactive charts',
+        'Role-based access control for different team members',
+        'Export reports to PDF / Excel',
+        'Mobile-responsive for on-the-go management'
+      ],
+      technologies: ['Vue.js', 'Chart.js', 'Laravel', 'MySQL', 'Tailwind CSS', 'REST API'],
+      icon_name: 'chart',
+      sort_order: 7
+    },
+    {
+      id: 8,
+      title: 'Business Automation & Workflow Digitalisation',
+      description: 'Transform manual, paper-based business processes into automated, digital workflows that save time and reduce errors.',
+      what_is_it: 'Building automation systems that replace repetitive manual tasks — from automated reporting and email notifications to workflow orchestration and field operation tracking.',
+      who_is_it_for: 'Moroccan SMEs and businesses with repetitive internal processes that waste staff time.',
+      benefits: [
+        'Significant reduction in manual data entry errors',
+        'Automated reports sent to the right people at the right time',
+        'Real-time visibility into operations without phone calls',
+        'Faster processes and measurable productivity gains'
+      ],
+      technologies: ['Laravel', 'Node.js', 'Queue Systems', 'MySQL', 'Vue.js', 'REST API'],
+      icon_name: 'automation',
+      sort_order: 8
+    },
+    {
+      id: 9,
+      title: 'Landing Page & Business Website',
+      description: 'Conversion-optimised landing pages and business websites that attract visitors, rank on Google, and generate real leads.',
+      what_is_it: 'Development of fast, responsive, SEO-optimised landing pages and business websites with clear calls-to-action, structured data, and Core Web Vitals compliance.',
+      who_is_it_for: 'Businesses, freelancers, and service providers that need a professional online presence to attract clients.',
+      benefits: [
+        'SEO-optimised from launch — ranks on Google',
+        'Fast loading (Core Web Vitals green scores)',
+        'Mobile-first and fully responsive',
+        'Clear CTAs designed to convert visitors into leads'
+      ],
+      technologies: ['HTML5', 'CSS3', 'JavaScript', 'Vue.js', 'Tailwind CSS', 'Schema.org'],
+      icon_name: 'globe',
+      sort_order: 9
+    }
   ],
 blog_posts: [
 {

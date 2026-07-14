@@ -62,10 +62,10 @@ const getCategoryIcon = (category) => {
     
     <div v-else class="space-y-20">
       <div v-for="(categorySkills, categoryName) in skills" :key="categoryName">
-        <h4 class="text-2xl font-bold text-[#EAEAEA] mb-8 capitalize flex items-center gap-3">
+        <h3 class="text-2xl font-bold text-[#EAEAEA] mb-8 capitalize flex items-center gap-3">
           <component :is="getCategoryIcon(categoryName)" class="w-6 h-6 text-[#E94560]" />
           {{ categoryName }}
-        </h4>
+        </h3>
         
         <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6" style="perspective: 1000px;">
           <div 

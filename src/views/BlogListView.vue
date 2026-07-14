@@ -3,9 +3,15 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
 import { optimizedImageUrl } from '../utils/images'
+import Breadcrumbs from '../components/ui/Breadcrumbs.vue'
 
 const router = useRouter()
 const { fetchBlogPosts } = useApi()
+
+const breadcrumbs = [
+  { label: 'Home', to: '/' },
+  { label: 'Blog' }
+]
 
 const posts = ref([])
 const loading = ref(true)
@@ -81,10 +87,7 @@ const formatDate = (dateString) => {
   <div class="min-h-screen pt-24 pb-20 px-6 max-w-7xl mx-auto">
     <!-- Header -->
     <div class="mb-12">
-      <button @click="router.push('/')" class="mb-8 text-[#A0A0B0] hover:text-[#E94560] transition-colors flex items-center gap-2 group">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m15 18-6-6 6-6"/></svg>
-        Back to Home
-      </button>
+      <Breadcrumbs :items="breadcrumbs" />
       <h1 class="text-4xl md:text-5xl font-black text-[#EAEAEA] mb-4">The Blog</h1>
       <p class="text-xl text-[#A0A0B0] max-w-2xl">Thoughts, learnings, and experiences in web development.</p>
     </div>
@@ -224,7 +227,7 @@ const formatDate = (dateString) => {
               {{ post.read_time }} min read
             </span>
           </div>
-          <h4 class="text-xl font-bold text-[#EAEAEA] mb-3 group-hover:text-[#E94560] transition-colors leading-tight">{{ post.title }}</h4>
+          <h2 class="text-xl font-bold text-[#EAEAEA] mb-3 group-hover:text-[#E94560] transition-colors leading-tight">{{ post.title }}</h2>
           <p class="text-[#A0A0B0] text-sm mb-5 flex-grow leading-relaxed line-clamp-3">{{ post.excerpt }}</p>
           <div class="flex items-center justify-between mt-auto pt-4 border-t border-[#1A1A2E]">
             <div class="flex flex-wrap gap-1.5">

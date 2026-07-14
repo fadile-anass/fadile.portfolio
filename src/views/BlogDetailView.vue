@@ -3,6 +3,8 @@ import { ref, onMounted, onUnmounted, nextTick, computed, defineAsyncComponent }
 import { useRoute, useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
 import { optimizedImageUrl } from '../utils/images'
+import Breadcrumbs from '../components/ui/Breadcrumbs.vue'
+import { updateMetaTags, injectJsonLd } from '../utils/seo'
 
 const ChatBot = defineAsyncComponent(() => import('../components/ChatBot/Chatbot.vue'))
 
@@ -99,6 +101,13 @@ function shareLinkedIn() {
   window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank')
 }
 
+// Breadcrumbs computed
+const breadcrumbs = computed(() => [
+  { label: 'Home', to: '/' },
+  { label: 'Blog', to: '/blog' },
+  { label: post.value?.title || 'Article', to: null }
+])
+
 onMounted(async () => {
   const slug = route.params.slug
   const { data, error: apiError } = await fetchBlogPostBySlug(slug)
@@ -113,7 +122,60 @@ onMounted(async () => {
     await nextTick()
     tocItems.value = parseToc(post.value.content)
     if (tocItems.value.length) activeHeading.value = tocItems.value[0].id
-    
+
+    // ── Dynamic SEO meta ────────────────────────────────────────────
+    const p = post.value
+    const canonicalUrl = `https://anassfadile.com/blog/${p.slug}`
+    updateMetaTags({
+      title: `${p.title} | Anass Fadile Blog`,
+      description: p.excerpt || p.title,
+      ogTitle: p.title,
+      ogDescription: p.excerpt || p.title,
+      ogImage: p.cover_image || 'https://anassfadile.com/og-default.jpg',
+      ogUrl: canonicalUrl,
+      canonical: canonicalUrl,
+      twitterCard: 'summary_large_image'
+    })
+
+    // ── BreadcrumbList JSON-LD ───────────────────────────────────────
+    injectJsonLd('breadcrumb', {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anassfadile.com/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://anassfadile.com/blog' },
+        { '@type': 'ListItem', position: 3, name: p.title, item: canonicalUrl }
+      ]
+    })
+
+    // ── Article JSON-LD ─────────────────────────────────────────────
+    injectJsonLd('article', {
+      '@context': 'https://schema.org',
+      '@type': 'Article',
+      headline: p.title,
+      description: p.excerpt || p.title,
+      image: p.cover_image ? [p.cover_image] : [],
+      datePublished: p.created_at,
+      dateModified: p.updated_at || p.created_at,
+      author: {
+        '@type': 'Person',
+        name: 'Anass Fadile',
+        url: 'https://anassfadile.com',
+        jobTitle: 'Full Stack Developer',
+        sameAs: [
+          'https://github.com/AnassFadile',
+          'https://www.linkedin.com/in/anass-fadile/'
+        ]
+      },
+      publisher: {
+        '@type': 'Person',
+        name: 'Anass Fadile',
+        url: 'https://anassfadile.com'
+      },
+      mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+      keywords: JSON.parse(p.tags || '[]').join(', ')
+    })
+
     await loadInteractions(slug)
   } else {
     error.value = apiError.value || 'Blog post not found'
@@ -181,11 +243,8 @@ const blogContext = computed(() => {
   <div class="min-h-screen pt-24 pb-16">
     <div class="px-6 max-w-7xl mx-auto">
 
-      <!-- Back button -->
-      <button @click="router.push('/blog')" class="mb-10 text-[#A0A0B0] hover:text-[#E94560] transition-colors flex items-center gap-2 group">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:-translate-x-1 transition-transform"><path d="m15 18-6-6 6-6"/></svg>
-        Back to blog
-      </button>
+      <!-- Breadcrumb navigation -->
+      <Breadcrumbs :items="breadcrumbs" class="mb-8" />
 
       <!-- Loading -->
       <div v-if="loading" class="text-center py-20 flex flex-col items-center gap-4">
@@ -223,6 +282,10 @@ const blogContext = computed(() => {
               </div>
               <span class="w-px h-8 bg-[#1A1A2E]"></span>
               <time :datetime="post.created_at">{{ formatDate(post.created_at) }}</time>
+              <time v-if="post.updated_at && post.updated_at !== post.created_at" :datetime="post.updated_at" class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/></svg>
+                Updated {{ formatDate(post.updated_at) }}
+              </time>
               <span v-if="post.read_time" class="flex items-center gap-1.5">
                 <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
                 {{ post.read_time }} min read
@@ -251,7 +314,7 @@ const blogContext = computed(() => {
 
           <!-- Reactions Section -->
           <div class="mt-16 bg-[#16213E]/50 border border-[#1A1A2E] rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <h3 class="text-xl font-bold text-[#EAEAEA]">What do you think?</h3>
+            <p class="text-xl font-bold text-[#EAEAEA]">What do you think?</p>
             <div class="flex flex-wrap items-center justify-center gap-3">
               <button
                 v-for="emoji in ['🔥', '❤️', '👏', '💡', '🚀', '👀']"
@@ -267,7 +330,7 @@ const blogContext = computed(() => {
 
           <!-- Comments Section -->
           <div class="mt-12">
-            <h3 class="text-2xl font-black text-[#EAEAEA] mb-8">Comments ({{ comments.length }})</h3>
+            <h2 class="text-2xl font-black text-[#EAEAEA] mb-8">Comments ({{ comments.length }})</h2>
             
             <!-- Comment Form -->
             <form @submit.prevent="submitComment" class="bg-[#16213E] border border-[#1A1A2E] rounded-2xl p-6 md:p-8 mb-10 shadow-lg">
@@ -310,7 +373,7 @@ const blogContext = computed(() => {
                 <!-- Content -->
                 <div class="flex-grow">
                   <div class="flex flex-wrap items-baseline gap-x-4 gap-y-1 mb-2">
-                    <h4 class="font-bold text-[#EAEAEA] text-lg">{{ comment.author_name }}</h4>
+                    <h3 class="font-bold text-[#EAEAEA] text-lg">{{ comment.author_name }}</h3>
                     <span class="text-xs text-[#606070]">{{ formatDate(comment.created_at) }}</span>
                   </div>
                   <p class="text-[#A0A0B0] leading-relaxed whitespace-pre-line">{{ comment.content }}</p>
@@ -325,11 +388,11 @@ const blogContext = computed(() => {
             <div class="mb-10">
               <p class="text-xs uppercase tracking-widest text-[#606070] font-semibold mb-4">Share this post</p>
               <div class="flex items-center gap-3">
-                <button @click="shareTwitter" class="flex items-center gap-2 px-4 py-2 bg-[#16213E] border border-[#1A1A2E] hover:border-[#E94560]/40 text-[#A0A0B0] hover:text-[#E94560] rounded-xl text-sm font-medium transition-all duration-200 hover:-translate-y-0.5">
+                <button @click="shareTwitter" aria-label="Share on X / Twitter" class="flex items-center gap-2 px-4 py-2 bg-[#16213E] border border-[#1A1A2E] hover:border-[#E94560]/40 text-[#A0A0B0] hover:text-[#E94560] rounded-xl text-sm font-medium transition-all duration-200 hover:-translate-y-0.5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.259 5.63zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                   X / Twitter
                 </button>
-                <button @click="shareLinkedIn" class="flex items-center gap-2 px-4 py-2 bg-[#16213E] border border-[#1A1A2E] hover:border-[#E94560]/40 text-[#A0A0B0] hover:text-[#E94560] rounded-xl text-sm font-medium transition-all duration-200 hover:-translate-y-0.5">
+                <button @click="shareLinkedIn" aria-label="Share on LinkedIn" class="flex items-center gap-2 px-4 py-2 bg-[#16213E] border border-[#1A1A2E] hover:border-[#E94560]/40 text-[#A0A0B0] hover:text-[#E94560] rounded-xl text-sm font-medium transition-all duration-200 hover:-translate-y-0.5">
                   <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                   LinkedIn
                 </button>
@@ -380,7 +443,7 @@ const blogContext = computed(() => {
                   <div class="flex flex-wrap gap-1 mb-3">
                     <span v-for="tag in JSON.parse(rp.tags || '[]')" :key="tag" class="text-[9px] uppercase tracking-wider text-[#E94560] bg-[#E94560]/10 px-2 py-0.5 rounded border border-[#E94560]/10">{{ tag }}</span>
                   </div>
-                  <h4 class="font-bold text-[#EAEAEA] group-hover:text-[#E94560] transition-colors leading-snug mb-2 flex-grow">{{ rp.title }}</h4>
+                  <h3 class="font-bold text-[#EAEAEA] group-hover:text-[#E94560] transition-colors leading-snug mb-2 flex-grow">{{ rp.title }}</h3>
                   <div class="flex items-center justify-between">
                     <span class="text-xs text-[#606070]">{{ rp.read_time }} min read</span>
                     <span class="text-xs text-[#E94560] font-bold flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">

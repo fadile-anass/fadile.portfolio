@@ -47,21 +47,23 @@ const soft_skills = [
           </p>
         </div>
         
-        <h4 class="text-xl font-bold text-[#EAEAEA] mb-4">Education</h4>
+        <h3 class="text-xl font-bold text-[#EAEAEA] mb-4">Education</h3>
         <div class="space-y-4 mb-8">
           <TimelineItem 
             title="ESTEM" 
             subtitle="2023 - 2024" 
             description="Advanced studies in Information Technology and Management."
+            headingTag="h4"
           />
           <TimelineItem 
             title="CFPM Sidi Moumen" 
             subtitle="2021 - 2023" 
             description="Foundation in software development and computer science."
+            headingTag="h4"
           />
         </div>
         
-        <h4 class="text-xl font-bold text-[#EAEAEA] mb-4">Soft Skills</h4>
+        <h3 class="text-xl font-bold text-[#EAEAEA] mb-4">Soft Skills</h3>
         <div class="flex flex-wrap gap-2 mb-8">
           <span v-for="skill in soft_skills" :key="skill" class="px-4 py-2 bg-[#16213E] text-[#EAEAEA] text-sm rounded-lg border border-[rgba(233,69,96,0.1)]">
             {{ skill }}
