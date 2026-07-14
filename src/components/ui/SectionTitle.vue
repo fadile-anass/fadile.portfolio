@@ -21,7 +21,7 @@ defineProps({
       {{ number }}
     </div>
     <div class="relative z-10">
-      <h3 class="text-[#E94560] font-mono text-sm tracking-widest uppercase mb-2">{{ subtitle }}</h3>
+      <p class="text-[#E94560] font-mono text-sm tracking-widest uppercase mb-2">{{ subtitle }}</p>
       <h2 class="text-3xl md:text-4xl font-bold text-[#EAEAEA]">{{ title }}</h2>
       <div class="w-16 h-1 bg-[#E94560] mt-4 rounded-full"></div>
     </div>

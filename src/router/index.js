@@ -92,6 +92,10 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  // Clear any dynamic JSON-LD tags from the previous page
+  const dynamicSchemas = document.querySelectorAll('script[id^="jsonld-"]')
+  dynamicSchemas.forEach(el => el.remove())
+
   const auth = useAuthStore()
   const isAuth = auth.isAuthenticated()
 

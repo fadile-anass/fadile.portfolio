@@ -159,7 +159,7 @@ const formatDate = (dateString) => {
                 {{ post.read_time }} min read
               </span>
             </div>
-            <h4 class="text-xl font-bold text-[#EAEAEA] mb-3 group-hover:text-[#E94560] transition-colors leading-tight">{{ post.title }}</h4>
+            <h3 class="text-xl font-bold text-[#EAEAEA] mb-3 group-hover:text-[#E94560] transition-colors leading-tight">{{ post.title }}</h3>
             <p class="text-[#A0A0B0] text-sm mb-5 flex-grow leading-relaxed line-clamp-3">{{ post.excerpt }}</p>
             <div class="flex items-center justify-between mt-auto pt-4 border-t border-[#1A1A2E]">
               <div class="flex flex-wrap gap-1.5">

@@ -6,6 +6,10 @@ defineProps({
   isActive: {
     type: Boolean,
     default: false
+  },
+  headingTag: {
+    type: String,
+    default: 'h3'
   }
 })
 </script>
@@ -23,7 +27,7 @@ defineProps({
 
     <!-- Glassmorphism card -->
     <div class="timeline-card relative rounded-2xl p-6 transition-all duration-500 group cursor-default">
-      <h5 class="text-lg font-bold text-[#EAEAEA] group-hover:text-white transition-colors duration-300">{{ title }}</h5>
+      <component :is="headingTag" class="text-lg font-bold text-[#EAEAEA] group-hover:text-white transition-colors duration-300">{{ title }}</component>
       <span class="inline-block text-xs text-[#E94560] font-mono mt-1 mb-3 tracking-wide">{{ subtitle }}</span>
       <p class="text-[#A0A0B0] text-sm leading-relaxed group-hover:text-[#C0C0D0] transition-colors duration-300">{{ description }}</p>
       <slot></slot>
