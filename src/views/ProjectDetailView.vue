@@ -50,7 +50,7 @@ onMounted(async () => {
       })
 
       // ── BreadcrumbList JSON-LD ───────────────────────────────────────
-      injectJsonLd('breadcrumb', {
+      injectJsonLd('jsonld-breadcrumb', {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
@@ -84,7 +84,7 @@ onMounted(async () => {
       if (p.github_url && p.github_url !== '#') schema.codeRepository = p.github_url
       if (p.demo_url && p.demo_url !== '#') schema.installUrl = p.demo_url
 
-      injectJsonLd('project', schema)
+      injectJsonLd('jsonld-project', schema)
     }
   }
 })

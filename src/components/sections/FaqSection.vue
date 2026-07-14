@@ -68,7 +68,7 @@ const toggle = (i) => {
 }
 
 onMounted(() => {
-  injectJsonLd('faq', {
+  injectJsonLd('jsonld-faq', {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
     mainEntity: faqs.map(({ q, a }) => ({

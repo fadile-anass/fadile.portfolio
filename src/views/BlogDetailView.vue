@@ -138,7 +138,7 @@ onMounted(async () => {
     })
 
     // ── BreadcrumbList JSON-LD ───────────────────────────────────────
-    injectJsonLd('breadcrumb', {
+    injectJsonLd('jsonld-breadcrumb', {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
@@ -149,7 +149,7 @@ onMounted(async () => {
     })
 
     // ── Article JSON-LD ─────────────────────────────────────────────
-    injectJsonLd('article', {
+    injectJsonLd('jsonld-article', {
       '@context': 'https://schema.org',
       '@type': 'Article',
       headline: p.title,
