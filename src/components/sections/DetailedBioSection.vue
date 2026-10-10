@@ -151,7 +151,7 @@
     </p>
 
     <meta itemprop="jobTitle" content="Full Stack Developer" />
-    <meta itemprop="url" content="https://anassfadile.com" />
+    <meta itemprop="url" content="https://www.fadile.site" />
     <link itemprop="sameAs" href="https://github.com/AnassFadile" />
     <link itemprop="sameAs" href="https://www.linkedin.com/in/anass-fadile/" />
   </section>

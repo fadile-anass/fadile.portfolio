@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
 import { optimizedImageUrl } from '../utils/images'
 import Breadcrumbs from '../components/ui/Breadcrumbs.vue'
-import { updateMetaTags, injectJsonLd } from '../utils/seo'
+import { updateMetaTags, injectJsonLd, toAbsoluteUrl } from '../utils/seo'
 
 const route = useRoute()
 const router = useRouter()
@@ -35,7 +35,7 @@ onMounted(async () => {
     } else {
       // ── Dynamic SEO meta ────────────────────────────────────────────
       const p = project.value
-      const canonicalUrl = `https://anassfadile.com/projects/${p.slug}`
+      const canonicalUrl = `https://www.fadile.site/projects/${p.slug}`
       const techStack = JSON.parse(p.tech_stack || '[]')
 
       updateMetaTags({
@@ -43,7 +43,7 @@ onMounted(async () => {
         description: p.description?.substring(0, 160) || p.title,
         ogTitle: p.title,
         ogDescription: p.description?.substring(0, 200) || p.title,
-        ogImage: p.image_url || 'https://anassfadile.com/og-default.jpg',
+        ogImage: p.image_url || 'https://www.fadile.site/images/og-default.jpg',
         ogUrl: canonicalUrl,
         canonical: canonicalUrl,
         twitterCard: 'summary_large_image'
@@ -54,8 +54,8 @@ onMounted(async () => {
         '@context': 'https://schema.org',
         '@type': 'BreadcrumbList',
         itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anassfadile.com/' },
-          { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://anassfadile.com/#projects' },
+          { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.fadile.site/' },
+          { '@type': 'ListItem', position: 2, name: 'Projects', item: 'https://www.fadile.site/#projects' },
           { '@type': 'ListItem', position: 3, name: p.title, item: canonicalUrl }
         ]
       })
@@ -66,12 +66,12 @@ onMounted(async () => {
         '@type': 'SoftwareSourceCode',
         name: p.title,
         description: p.description || p.title,
-        image: p.image_url ? [p.image_url] : [],
+        image: p.image_url ? [toAbsoluteUrl(p.image_url)] : [],
         url: canonicalUrl,
         author: {
           '@type': 'Person',
           name: 'Anass Fadile',
-          url: 'https://anassfadile.com',
+          url: 'https://www.fadile.site',
           jobTitle: 'Full Stack Developer',
           sameAs: [
             'https://github.com/AnassFadile',

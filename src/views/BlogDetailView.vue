@@ -4,7 +4,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { useApi } from '../composables/useApi'
 import { optimizedImageUrl } from '../utils/images'
 import Breadcrumbs from '../components/ui/Breadcrumbs.vue'
-import { updateMetaTags, injectJsonLd } from '../utils/seo'
+import { updateMetaTags, injectJsonLd, toAbsoluteUrl, OG_DEFAULT_IMAGE } from '../utils/seo'
 
 const ChatBot = defineAsyncComponent(() => import('../components/ChatBot/Chatbot.vue'))
 
@@ -125,13 +125,13 @@ onMounted(async () => {
 
     // ── Dynamic SEO meta ────────────────────────────────────────────
     const p = post.value
-    const canonicalUrl = `https://anassfadile.com/blog/${p.slug}`
+    const canonicalUrl = `https://www.fadile.site/blog/${p.slug}`
     updateMetaTags({
       title: `${p.title} | Anass Fadile Blog`,
       description: p.excerpt || p.title,
       ogTitle: p.title,
       ogDescription: p.excerpt || p.title,
-      ogImage: p.cover_image || 'https://anassfadile.com/og-default.jpg',
+      ogImage: p.cover_image || 'https://www.fadile.site/images/og-default.jpg',
       ogUrl: canonicalUrl,
       canonical: canonicalUrl,
       twitterCard: 'summary_large_image'
@@ -142,25 +142,25 @@ onMounted(async () => {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://anassfadile.com/' },
-        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://anassfadile.com/blog' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.fadile.site/' },
+        { '@type': 'ListItem', position: 2, name: 'Blog', item: 'https://www.fadile.site/blog' },
         { '@type': 'ListItem', position: 3, name: p.title, item: canonicalUrl }
       ]
     })
 
-    // ── Article JSON-LD ─────────────────────────────────────────────
+    // ── BlogPosting JSON-LD ─────────────────────────────────────────
     injectJsonLd('jsonld-article', {
       '@context': 'https://schema.org',
-      '@type': 'Article',
+      '@type': 'BlogPosting',
       headline: p.title,
       description: p.excerpt || p.title,
-      image: p.cover_image ? [p.cover_image] : [],
+      image: p.cover_image ? [toAbsoluteUrl(p.cover_image)] : [OG_DEFAULT_IMAGE],
       datePublished: p.created_at,
       dateModified: p.updated_at || p.created_at,
       author: {
         '@type': 'Person',
         name: 'Anass Fadile',
-        url: 'https://anassfadile.com',
+        url: 'https://www.fadile.site',
         jobTitle: 'Full Stack Developer',
         sameAs: [
           'https://github.com/AnassFadile',
@@ -170,7 +170,7 @@ onMounted(async () => {
       publisher: {
         '@type': 'Person',
         name: 'Anass Fadile',
-        url: 'https://anassfadile.com'
+        url: 'https://www.fadile.site'
       },
       mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
       keywords: JSON.parse(p.tags || '[]').join(', ')

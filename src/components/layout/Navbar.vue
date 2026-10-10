@@ -43,7 +43,7 @@ const navLinks = [
   >
     <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
       <a href="#hero" class="text-2xl font-bold text-[#E94560] tracking-tighter">
-        <img :src="logo" alt="Logo" class="w-12 h-auto" />
+        <img :src="logo" alt="Fadile Anass – logo" class="w-12 h-auto" />
       </a>
       
       <!-- Desktop Nav -->

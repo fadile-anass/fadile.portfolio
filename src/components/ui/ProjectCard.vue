@@ -22,7 +22,7 @@ onMounted(() => {
 })
 
 const navigateToProject = () => {
-  router.push(`/project/${props.project.slug}`)
+  router.push(`/projects/${props.project.slug}`)
 }
 </script>
 

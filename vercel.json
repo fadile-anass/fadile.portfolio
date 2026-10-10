@@ -29,6 +29,79 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/project/:slug*",
+      "destination": "/projects/:slug*",
+      "permanent": true
+    },
+    {
+      "source": "/projects/business-side-of-dev",
+      "destination": "/blog/business-side-of-dev",
+      "permanent": true
+    },
+    {
+      "source": "/projects/developer-to-problem-solver",
+      "destination": "/blog/developer-to-problem-solver",
+      "permanent": true
+    },
+    {
+      "source": "/projects/idea-to-mvp-with-ai",
+      "destination": "/blog/idea-to-mvp-with-ai",
+      "permanent": true
+    },
+    {
+      "source": "/projects/idea-to-product",
+      "destination": "/blog/idea-to-product",
+      "permanent": true
+    },
+    {
+      "source": "/projects/market-research-validate-before-building",
+      "destination": "/blog/market-research-validate-before-building",
+      "permanent": true
+    },
+    {
+      "source": "/projects/rag-vs-prompt-vs-function-vs-finetuning",
+      "destination": "/blog/rag-vs-prompt-vs-function-vs-finetuning",
+      "permanent": true
+    },
+    {
+      "source": "/projects/scalable-dashboards-vue-laravel",
+      "destination": "/blog/scalable-dashboards-vue-laravel",
+      "permanent": true
+    },
+    {
+      "source": "/projects/tracking-systems-business",
+      "destination": "/blog/tracking-systems-business",
+      "permanent": true
+    },
+    {
+      "source": "/projects/user-centric-thinking",
+      "destination": "/blog/user-centric-thinking",
+      "permanent": true
+    },
+    {
+      "source": "/projects/why-web-apps-fail",
+      "destination": "/blog/why-web-apps-fail",
+      "permanent": true
+    },
+    {
+      "source": "/projects/why-websites-dont-bring-clients",
+      "destination": "/blog/why-websites-dont-bring-clients",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [
+        {
+          "type": "host",
+          "value": "fadile.site"
+        }
+      ],
+      "destination": "https://www.fadile.site/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/api/(.*)",
