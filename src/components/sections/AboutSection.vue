@@ -1,7 +1,7 @@
 <script setup>
 import SectionTitle from '../ui/SectionTitle.vue'
 import TimelineItem from '../ui/TimelineItem.vue'
-import profileImage from '../../assets/images/about_photo.jpg';
+import profileImage from '../../assets/images/about_photo.png';
 
 
 const soft_skills = [
@@ -25,14 +25,74 @@ const soft_skills = [
     <SectionTitle number="01" subtitle="Get to know me" title="About Me" />
     
     <div class="grid md:grid-cols-12 gap-12 items-center">
-      <div class="md:col-span-5 flex justify-center">
-        <div class="relative w-64 h-64 rounded-full p-2 group">
-          <div class="absolute inset-0 rounded-full border-2 border-[#1A1A2E] transition-colors duration-300 group-hover:border-[#E94560]"></div>
-          <div class="w-full h-full rounded-full overflow-hidden bg-[#16213E]">
-            <img :src="profileImage" alt="Fadile Anass" loading="lazy" decoding="async" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500" />
-          </div>
-        </div>
-      </div>
+
+<div class="md:col-span-5 flex justify-center">
+  <div
+    class="profile-portrait group relative w-72 h-72 md:w-80 md:h-80"
+  >
+    <!-- Dark background with subtle red glow -->
+    <div
+      class="absolute inset-0 rounded-full
+             bg-[#0D0D17]
+             shadow-[0_0_80px_rgba(233,69,96,0.12)]
+             transition-all duration-500
+             group-hover:shadow-[0_0_100px_rgba(233,69,96,0.25)]"
+    ></div>
+
+    <!-- Gradient circular border -->
+    <div
+      class="absolute inset-0 rounded-full
+             border-[3px] border-transparent
+             bg-gradient-to-br from-[#2B2B40] via-[#E94560] to-[#2B2B40]
+             [background-origin:border-box]
+             [background-clip:border-box]
+             transition-transform duration-700
+             group-hover:rotate-6"
+    ></div>
+
+    <!-- Inner dark circle -->
+    <div
+      class="absolute inset-[3px] rounded-full
+             overflow-hidden bg-[#0D0D17]"
+    >
+      <!-- Red atmospheric glow -->
+      <div
+        class="absolute inset-0
+               bg-[radial-gradient(ellipse_at_50%_65%,rgba(233,69,96,0.22),transparent_65%)]"
+      ></div>
+
+      <!-- Transparent portrait -->
+      <img
+        :src="profileImage"
+        alt="Fadile Anass"
+        loading="lazy"
+        decoding="async"
+        class="relative z-10 w-full h-full
+               object-contain object-bottom
+               transition-transform duration-700
+               group-hover:scale-[1.04]"
+      />
+    </div>
+
+    <!-- Outer decorative ring -->
+    <div
+      class="absolute -inset-3 rounded-full
+             border border-[#252538]
+             pointer-events-none
+             transition-colors duration-500
+             group-hover:border-[rgba(233,69,96,0.35)]"
+    ></div>
+
+    <!-- Small red accent -->
+    <div
+      class="absolute top-[18%] right-[12%]
+             w-3 h-3 rounded-full
+             bg-[#E94560]
+             shadow-[0_0_20px_rgba(233,69,96,0.8)]"
+    ></div>
+  </div>
+</div>
+
       
       <div class="md:col-span-7">
         <div class="prose prose-invert max-w-none text-[#A0A0B0]">
